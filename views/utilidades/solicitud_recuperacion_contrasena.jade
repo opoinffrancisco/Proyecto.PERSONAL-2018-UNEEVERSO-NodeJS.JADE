@@ -1,0 +1,119 @@
+doctype html
+html.login
+  head
+    meta(charset='UTF-8')
+    title Uneeverso
+    meta(name='description',content='Gestión de cambio de contraseña de cuentas de uneeverso, haciendo uso de enlace temporal')
+    meta(name='author' content='@blickyer')
+    meta(name='robots',content='noindex,nofollow')
+    meta(content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no', name='viewport')
+    // bootstrap 3.0.2
+    link(href='../../css/bootstrap.min.css', rel='stylesheet', type='text/css')
+    // font Awesome
+    link(href='../../css/font-awesome.min.css', rel='stylesheet', type='text/css')
+    // Theme style
+    link(href='../../css/AdminLTE.css', rel='stylesheet', type='text/css')
+    // Alertas
+    link(href='/css/alertifyjs/alertify.min.css', rel='stylesheet', type='text/css')    
+    // Theme style personalizado
+    link(href='../../css/style-login.css', rel='stylesheet', type='text/css')  
+    // HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+    // WARNING: Respond.js doesn't work if you view the page via file://
+    //if lt IE 9
+      script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
+      script(src='https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js')
+  body#login.login( onload='sesion.app()')
+    a#logo_uneeverso(href='/')
+      img(src='/img/uneeverso.png',style='position:  fixed;height:  100px;width:  100px;margin: 30px;')  
+    #login-box.form-box
+      .header.skin-blue Uneeverso
+      form( method='post')
+        .body.bg-gray
+          .form-group
+            input.form-control(type='text', name='usuario_steem', id='usuario_steem', placeholder='Usuario steem', value='',required='TRUE')
+          .input-group
+              input.form-control(type='password', name='priwif_steem' id='priwif_steem', placeholder='Wif/Contraseña privada de publicación steem', value='', required='TRUE')
+              a.input-group-addon.bg-blue(data-toggle='modal', data-target='#compose-modal')
+                //i.glyphicon.glyphicon-link                  
+                //i.fa.fa-unlock
+                i.fa.fa-question
+            span.skin-red Atención:
+            br
+            span.skin-red Se le enviara un codigo de recuperación a su correo electronico de registro en uneeverso          
+        .footer
+          a#btn-registro.btn.bg-blue.btn-block(onclick='sesion.solicitar_contrasena()') Solicitar contraseña
+          a#btn-volver-login.btn.bg-blue.btn-block(href='/login') Volver
+    center 
+      select#opciones_nodo_conexion.navbar-btn.dropdown.notifications-menu.dropdown-toggle(style='padding:9px 5px;', onchange='sesion.opciones_nodo_conexion()')
+        option(value='0', selected='TRUE') Si precencia un error: Seleccione un nodo de conexión 
+        option(value='rpc.buildteam.io') rpc.buildteam.io
+        option(value='steemd.privex.io') steemd.privex.io
+        option(value='steemd.minnowsupportproject.org') steemd.minnowsupportproject.org
+        option(value='steemd.pevo.science') steemd.pevo.science
+        option(value='gtg.steem.house:8090') gtg.steem.house:8090
+        option(value='seed.bitcoiner.me') seed.bitcoiner.me
+    block message-modal
+      // COMPOSE MESSAGE MODAL
+      #compose-modal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+        .modal-dialog
+          .modal-content
+            .modal-header
+              button#cerrar_modal.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+              h4.modal-title
+                i.fa.fa-key
+                |     Obtener wif privado de publicación
+            .modal-body
+              b Este token wif de publicación sera usado para verificar que usted es el dueño de la cuenta.
+              hr
+              h4 Paso A
+              span * Dirijase hacia steemit.com e inicie sesión.
+              h4 Paso B : Sección de token Wif publicando.
+              span 1 * <b>Entre en su blog, ejemplo:</b> https://steemit.com/@nombre_de_usuario
+              br
+              span 2 * <b>Entre en su monedero:</b> Click en el menu 'Monedero'.
+              br
+              span 3 * <b>Entre en permisos:</b> Click en el sub menu 'Permisos'.
+              h4 Paso C : Cambiar token publicando a privado
+              span 1 * Presione el boton 'Mostrar clave privada' del token Publicando.
+              br
+              span <b>!IMPORTANTE¡</b> Para que se actualice el token. Seben darle al boton 'Acceder para mostrar' del token Activo, y al abrirse la ventana modal la cierran sin hacer mas nada.
+              br
+              span 2 * <b>Observar que el token Publicando cambio y proceda a copiarlo</b> 
+              br
+              span 3 * Colarlo en el campo WIF de registro en Uneeverso.
+              br
+            //.modal-body
+                .form-group
+                  span Usuario steem
+                  .input-group
+                    span.input-group-addon 
+                      i.fa.fa-user
+                    input.form-control(name='usuario_steem_keyps', id='usuario_steem_keyps', type='text', placeholder='Ingresar usuario steem ')
+                .form-group
+                  span Contraseña principal de su cuenta steem
+                  .input-group
+                    span.input-group-addon
+                      i.fa.fa-key
+                    input.form-control(name='contrasena_steem_keyps',, id='contrasena_steem_keyps', type='password', placeholder='Ingresar contraseña principal de su cuenta steem')
+
+              //.modal-footer.clearfix
+                a.btn.btn-primary.pull-left(onclick='sesion.obtener_wif_public()') Obtener Wif publicacíon
+          // /.modal-content
+        // /.modal-dialog
+      // /.modal                      
+    // jQuery 2.0.2
+    script(src='/js/libs/jquery.min.js')
+    // Bootstrap
+    script(src='../../js/bootstrap.min.js', type='text/javascript')
+    // alertifyjs-js
+    script(src='/js/alertifyjs/alertify.min.js')
+    // Utilidades - alertas
+    script(src='../../js/pages/utilidades/alertas.js', type='text/javascript')    
+    // Utilidades - animaciones
+    script(src='/js/pages/utilidades/animaciones.js', type='text/javascript')
+    // steem-js
+    script(src='/js/steemjs/steem.min.js')
+    // Utilidades - configuracion
+    script(src='../../js/pages/configuracion/configuracion.js', type='text/javascript')    
+    // JS - page login
+    script(src='/js/pages/sesion.js')

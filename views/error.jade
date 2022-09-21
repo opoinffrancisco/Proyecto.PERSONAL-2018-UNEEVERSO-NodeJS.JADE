@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  
+	center
+		h1= message
+		h2= error.status
+		//pre #{error.stack}
+		if(error.status==404)
+			pre
+				h3 La dirección solicitada no existe o no se encuentra disponible

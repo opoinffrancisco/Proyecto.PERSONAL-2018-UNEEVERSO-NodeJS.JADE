@@ -1,0 +1,24 @@
+cliente localhost
+
+fhlnIvz81Aw:APA91bFQeOG1mKfuGVRJmFRHyAFmRa1WHX7mz-oiq89-rPc_nxUyIZQIsOqEOu6nHOnh-3VlDZtOBJzl1tJQlt14H-bDgF58JNLGfqv5j4AWm_ksANMrfWl-QptcZlw8RMEasuC52RzD
+
+servidor
+
+AAAA_EiGwTQ:APA91bGGC_mWcsZJeCu4DtgGc0CTC3XCDWdVaOHfOahrCRlEQrvqPZj0kGjvjFEM5-6eMjtBrnYDjFnFg2Am3K_qWpFr60auGKr25SomosSSdz7BrnZKeAvTGenOdr-wEjRsubF6otkH
+
+
+
+
+curl https://fcm.googleapis.com/fcm/send --header "Authorization:key=[AAAA_EiGwTQ:APA91bGGC_mWcsZJeCu4DtgGc0CTC3XCDWdVaOHfOahrCRlEQrvqPZj0kGjvjFEM5-6eMjtBrnYDjFnFg2Am3K_qWpFr60auGKr25SomosSSdz7BrnZKeAvTGenOdr-wEjRsubF6otkH]" --header "Content-Type:application/json" -d '{ "notification": { "title": "Hey amigo, lee esto!", "body": "Felicidades!! Has recibido una gloriosa notificación", "icon": "/notificaciones/images/user-icon.png" }, "to" : "[fhlnIvz81Aw:APA91bFQeOG1mKfuGVRJmFRHyAFmRa1WHX7mz-oiq89-rPc_nxUyIZQIsOqEOu6nHOnh-3VlDZtOBJzl1tJQlt14H-bDgF58JNLGfqv5j4AWm_ksANMrfWl-QptcZlw8RMEasuC52RzD]" }'
+
+
+
+curl https://fcm.googleapis.com/fcm/send --header "Authorization:key=[TU_KEY]" --header "Content-Type:application/json" -d '{ "notification": { "title": "Hey amigo, lee esto!", "body": "Felicidades!! Has recibido una gloriosa notificación", "icon": "/notificaciones/images/user-icon.png" }, "to" : "[TOKEN_DESTINATARIO]" }'
+
+
+curl -X POST -H "Authorization: Bearer ya29.ElqKBGN2Ri_Uz...HnS_uNreA" -H "Content-Type: application/json" -d '{"message":{"notification": {"title": "FCM Message","body": "This is an FCM Message",},"token": "bk3RNwTe3H0:CI2k_HHwgIpoDKCIZvvDMExUdFQ3P1..."}}' "https://fcm.googleapis.com/v1/projects/myproject-b5ae1/messages:send"
+
+
+
+
+curl -X POST -H "Authorization: Bearer AAAA_EiGwTQ:APA91bGGC_mWcsZJeCu4DtgGc0CTC3XCDWdVaOHfOahrCRlEQrvqPZj0kGjvjFEM5-6eMjtBrnYDjFnFg2Am3K_qWpFr60auGKr25SomosSSdz7BrnZKeAvTGenOdr-wEjRsubF6otkH" -H "Content-Type: application/json" -d '{"message":{"notification": {"title": "FCM Message","body": "This is an FCM Message",},"token": "fhlnIvz81Aw:APA91bFQeOG1mKfuGVRJmFRHyAFmRa1WHX7mz-oiq89-rPc_nxUyIZQIsOqEOu6nHOnh-3VlDZtOBJzl1tJQlt14H-bDgF58JNLGfqv5j4AWm_ksANMrfWl-QptcZlw8RMEasuC52RzD"}}' "https://fcm.googleapis.com/v1/projects/myproject-b5ae1/messages:send"

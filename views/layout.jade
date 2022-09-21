@@ -1,0 +1,536 @@
+block contenido_head
+	doctype html
+	html
+		head
+			meta(charset='UTF-8')
+			title#meta_title Uneeverso
+			meta(name='description' content='Red social basada en la gestión de datos de usuarios de la red del blockchain STEEM, empleando la automatizacion del voto comunitario, mejoras para la plataforma de redes sociales descentralizadas(Proximamente) y mejoras del mercado de criptomonedas(Proximamente)')
+			meta(name='author' content='@blickyer')
+			meta(name='robots',content='index,follow')
+			meta(content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no', name='viewport')
+			// manifes
+			link(rel='manifest',href='/manifest.json')
+			// bootstrap 3.0.2
+			link(href='/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+			// font Awesome
+			link(href='/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+			// Ionicons
+			link(href='/css/ionicons.min.css', rel='stylesheet', type='text/css')
+			// Morris chart
+			link(href='/css/morris/morris.css', rel='stylesheet', type='text/css')
+			// jvectormap
+			link(href='/css/jvectormap/jquery-jvectormap-1.2.2.css', rel='stylesheet', type='text/css')
+			// fullCalendar
+			link(href='/css/fullcalendar/fullcalendar.css', rel='stylesheet', type='text/css')
+			// Daterange picker
+			link(href='/css/daterangepicker/daterangepicker-bs3.css', rel='stylesheet', type='text/css')
+			// bootstrap wysihtml5 - text editor
+			link(href='/css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css', rel='stylesheet', type='text/css')
+			// iCheck for checkboxes and radio inputs
+			link(href='/css/iCheck/all.css', rel='stylesheet', type='text/css')
+			// Bootstrap Color Picker
+			link(href='/css/colorpicker/bootstrap-colorpicker.min.css', rel='stylesheet')
+			// Bootstrap time Picker
+			link(href='/css/timepicker/bootstrap-timepicker.min.css', rel='stylesheet')
+			// DATA TABLES
+			link(href='/css/datatables/jquery.dataTables.min.css', rel='stylesheet', type='text/css')
+			// demo style for icons
+			link(href='/css/AdminLTE/icons.css', rel='stylesheet', type='text/css')
+			// Ion Slider
+			link(href='/css/ionslider/ion.rangeSlider.css', rel='stylesheet', type='text/css')
+			// ion slider Nice
+			link(href='/css/ionslider/ion.rangeSlider.skinNice.css', rel='stylesheet', type='text/css')
+			// bootstrap slider
+			link(href='/css/bootstrap-slider/slider.css', rel='stylesheet', type='text/css')
+			// Theme style
+			link(href='/css/AdminLTE.css', rel='stylesheet', type='text/css')
+			// Alertas
+			link(href='/css/alertifyjs/alertify.min.css', rel='stylesheet', type='text/css')
+			// Theme style login
+			link(href='/css/style-login.css',rel='stylesheet',type='text/css')
+			// HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+			// WARNING: Respond.js doesn't work if you view the page via file://
+			//if lt IE 9
+				script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
+				script(src='https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js')
+
+			script(async,src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js')
+			script(src='https://www.googletagmanager.com/gtag/js?id=UA-115870146-1')
+			//-- Global site tag (gtag.js) - Google Analytics --
+			script(type='text/javascript').
+				window.dataLayer = window.dataLayer || [];
+				function gtag(){dataLayer.push(arguments);}
+				gtag('js', new Date());
+
+				gtag('config', 'UA-117097933-1');
+				//-- Global site tag (gtag.js) - Google Analytics --
+				//--adsense
+				(adsbygoogle=window.adsbygoogle||[]).push({
+					google_ad_client:"ca-pub-2191196972112292",
+					enable_page_level_ads:true
+				});
+
+block contenido_body
+	body.skin-blue-light.fixed(onload='sesion.extraerDatos()')
+		//.preloard(style='position: fixed;z-index: 999999999999999999999;width:  100%;')
+			.row
+				.col-md-12
+					center
+						span Procesando
+						img(style='margin-left:  5px;height:  20px;width:  20px;',src='/img/ajax-loader.gif')
+		// header logo: style can be found in header.less
+		header.header(style='background:white;box-shadow: -4px -3px 9px 1px #000;')
+			a.logo(href='/',style='font-family: initial;font-size: 30px;')
+				// Add the class icon to your logo image or logo icon to add the margining
+				| Uneeverso 
+				span(style='font-size:10px;color:#ccc;')  BETA
+			// Header Navbar: style can be found in header.less
+			nav.navbar.navbar-static-top(role='navigation')
+				// Sidebar toggle button
+				a#sidebar_izquierdo_g.sidebar_cerrado.icono-panel-usuario.html-sesion.navbar-btn.sidebar-toggle(href='#',data-toggle='offcanvas', role='button',style='display:none;',data-sidebar_izquierdo_g='false')
+					span.sr-only Toggle navigation
+					spani.fa.fa-user(style="font-size: large;")
+				a.icono-panel-usuario.html-sesion.navbar-btn.dropdown.notifications-menu.dropdown-toggle(href='#', data-toggle='dropdown', style='padding: 17px 5px;display:none;')
+						img#img_money_account(src='/img/procesar_datos.gif' style='width: 15px;height: 15px;margin-right: 2px;margin-left: 12px;')
+						spani.fa(style='padding: 17px 5px;') 
+							.cripto-datos
+								b SBD
+						//i.fa.fa-dollar
+					ul#panel_money_account.dropdown-menu(style='width: 100%;')
+						li#monedas(style='display: none;')
+							#content_monedas(style='background: #e7e9ec;width: 98%;float:  left;margin:  10px;padding:  5px;border-radius: 15px;')
+								.row
+									.col-md-3
+										.izquierda_merk_(style='float:left;')
+											b(style='color:#3c8dc2;') Mercado 
+											b#porcentaje_cambio(style='color:#13b528;') 
+										.derecha_merk_(style='float:right;')
+											b(style='color:#3c8dc2;') 1 SBD 
+											b(style='color:#3c8dc2;') = 
+									.col-md-3
+										center
+											//spani.fa.fa-dollar
+											b#precio_d_usb(style='color:;')
+											b(style='color:;')     USD
+									.col-md-3
+										//spani.fa.fa-bitcoin
+										b#precio_d_btc(style='color:;') 
+										b(style='color:;')     BTC
+									.col-md-3
+										//b E
+										b#precio_d_eth(style='color:;') 
+										b(style='color:;')     ETC
+						li#monedero(style='display: none;')
+							#content_monedero(style='background: #e7e9ec;width: 98%;float:  left;margin:  10px;padding:  5px;border-radius: 15px;')
+								.row
+									.col-md-3
+										.izquierda_merk_(style='float:left;')
+											b(style='color:#3c8dc2;') Monedero
+										.derecha_merk_(style='float:right;')
+											b#tu_sbd_balance(style='color:#3c8dc2;') 
+											b(style='color:#3c8dc2;') SBD = 
+									.col-md-3
+										center
+											//spani.fa.fa-dollar
+											b#monedero_precio_d_usb(style='color:;')  
+											b(style='color:;')     USD
+									.col-md-3
+										//spani.fa.fa-bitcoin
+										b#monedero_precio_d_btc(style='color:;') 
+										b(style='color:;')     BTC
+									.col-md-3
+										//b E
+										b#monedero_precio_d_eth(style='color:;') 
+										b(style='color:;')     ETC
+				.navbar-right
+					ul.nav.navbar-nav
+						li#notificacion-block.user.user-menu(style='display:none;')
+							button.btn.btn-lg(style="background:  white;padding: 3px 5px !important;margin:  9% 20px;",type="button",data-toggle="popover1")
+								i.fa.fa-bell-slash-o(style="color:#929292;font-size: 24px;")
+						// User Account: style can be found in dropdown.less
+						li.html-sesion.user.user-menu(style='display:none;')
+							a#icon_user_menu.url_user(href='')
+								img(src='/img/procesar_datos.gif' style='width: 15px;height: 15px;margin-right: 12px;')
+								span#nombreMuestra
+						li.html-sin-sesion.user.user-menu(style='display:none;')
+							a(href='javascript:;', data-toggle='modal', data-target='#compose-modal_login')
+								i.fa.fa-users.info
+								| Iniciar sesión
+						li.html-sin-sesion.user.user-menu(style='display:none;')
+							a(href='/registro')
+								i.fa.fa-user.info
+								span Registrarse
+						// PARA OPCIONES DE CURACION
+						li.html-sesion-menu-p.dropdown.notifications-menu(style='display:none;')
+							a.dropdown-toggle(href='#', data-toggle='dropdown',style='padding-bottom: 9px;')
+								i.fa.fa-heart
+								b(style='font-size: xx-large;') C
+							ul.dropdown-menu(style='height: 138px;')
+								li.header Curación
+								li
+									// inner menu: contains the actual data
+									ul.menu
+										li
+											a.url_auto(href='', rel='nofollow')
+												i.fa.fa-gears.info
+												|	Automatización
+										li
+											a.url_cfg_auto(href='', rel='nofollow')
+												i.fa.fa-gears.info
+												| Configuración STEEM
+
+						// PARA OPCIONES GENERALES - con sesion
+						li.html-sesion-menu-p.dropdown.notifications-menu(style='display:none;')
+							a.dropdown-toggle(href='#', data-toggle='dropdown')
+								i.fa.fa-bars
+							ul.dropdown-menu(style='height: 342px;')
+								li.header Opciones
+								li
+									ul.menu(style='height: 305px;')
+										li
+											a(href='/novedad', rel='follow')
+												i.fa.fa-info.info
+												| novedad
+										li
+											a.url_info(href='', target='_blank', rel='nofollow')
+												i.fa.fa-info.info
+												| Etiqueta Uneeverso
+										li
+											a(href='/organizador/', target='_blank', rel='follow')
+												i.fa.fa-info.info
+												| Organizadores
+										li
+											a(href='/usuarios', target='_blank', rel='follow')
+												i.fa.fa-info.info
+												| Usuarios												
+										li
+											a.url_cfg(href='', target='_blank', rel='follow')
+												i.fa.fa-gears.info
+												| Configuración
+										li
+											a(onclick='sesion.cerrar()') 
+												i.fa.fa-sign-out.danger
+												| Cerrar sesión
+
+		.wrapper.row-offcanvas.row-offcanvas-left
+			// Left side column. contains the logo and sidebar
+			aside.left-side.sidebar-offcanvas.collapse-left
+				// sidebar: style can be found in sidebar.less
+				section.sidebar(style='border-right:0px solid #aeaeae;')
+					// Sidebar user panel
+					a.url_user
+						#cover_image.user-panel
+							.pull-left.image
+								img#profile_image.img-circle(src='', alt='',style='width:  65px;height:  65px;')
+							.pull-left.info(style='padding: 0px;')
+								p#nombreMuestra_pju(style='color:white;background: #3579a0ad;border-radius: 5px;padding:  2px;')
+								#reputacion_pju(style='color:white;background: #3579a0ad;border-radius: 5px;padding:  2px;font-size:  30px;margin-left: 72px;')
+									b 
+									p(style='float:right;padding-left:10px;')
+
+					#txt-reputation.user-panel(style='padding:0px;') 
+						// Task item
+									
+					// end task item						
+					#txt-poder-voto.user-panel(style='padding:0px;padding-top:0px;') 
+						// Task item
+
+					// end task item
+					#tiempo-recarg-poder-voto.user-panel(style='padding:0px;padding-top:0px;') 
+						// Task item
+
+					// end task item
+
+				// /.sidebar
+			// Right side column. Contains the navbar and content of the page
+			aside.right-side.strech(style='border-left: 0.5px solid #ccc;')
+				block content
+				block content_sub
+			// /.right-side
+		// ./wrapper
+		block opciones_nodo_conexion
+			#aviso_conexion.aviso_conexion(style='display:none;')
+				center
+					span Nodo de conexión congestionado,
+					br 
+					span Si persiste :  
+					button.btn(type='button',style='padding:  3px;color: #224b63;',data-toggle='modal',data-target='#compose-modal_nodo_conexion') Cambiar 
+			a#btn_opciones_nodo_conexion.conexion_on.btn.btn-block(style='display:none;',data-estado='1')
+				//i#ico_conexion_on.fa.fa-sitemap
+				i#ico_conexion_off.fa.fa-times
+		block message-modal
+		block message-modal_capa_3
+		block message-modal_nodo_conexion
+			#compose-modal_nodo_conexion.modal.fade(tabindex='9999999', role='dialog', aria-hidden='true',style='background: #000;')
+				.modal-dialog(style='width: 90%;')
+							.row
+								.col-md-3
+								.col-md-9
+									h3.modal-title(style='color: white;') Seleccione un nuevo nodo de conexión
+							.row
+								.col-md-6
+									.list-group
+										a#opc_api_steemit_com.list-group-item(onclick='sesion.rest_con_api_steem("api.steemit.com");') api.steemit.com ( Recomendado )
+										a#opc_rpc_buildteam_io.list-group-item(onclick='sesion.rest_con_api_steem("rpc.buildteam.io");') rpc.buildteam.io ( Recomendado )
+										a#opc_steemd_privex_io.list-group-item(onclick='sesion.rest_con_api_steem("steemd.privex.io");') steemd.privex.io
+										a#opc_steemd_minnowsupportproject_org.list-group-item(onclick='sesion.rest_con_api_steem("steemd.minnowsupportproject.org");') steemd.minnowsupportproject.org
+										a#opc_steemd_pevo_science.list-group-item(onclick='sesion.rest_con_api_steem("steemd.pevo.science");') steemd.pevo.science
+										a#opc_gtg_steem_house_8090.list-group-item(onclick='sesion.rest_con_api_steem("gtg.steem.house:8090");') gtg.steem.house:8090
+										a#opc_seed_bitcoiner_me.list-group-item(onclick='sesion.rest_con_api_steem("seed.bitcoiner.me");') seed.bitcoiner.me
+								.col-md-6
+									center
+										img(src='/img/uneeverso.png',style='float: left;position:  relative;height:  100px;width:  100px;')
+										#uneeverso_conexion(style='float: left;font-size: 80px;margin-top: 0px;')
+											span neeverso
+					// /.modal-content
+				// /.modal-dialog
+			// /.modal
+		block message-modal_votos
+			#compose-modal_votos.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+				.modal-dialog(style='width: 90%;')
+					.modal-content
+						.modal-header
+							button.cerrar_modal.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+							h3.modal-title Detalles de los votos
+						.modal-body.table-responsive
+							.row
+								.col-md-4
+									.box
+										#lista_votos_post_panel_datos.box-body.table-responsive(style='display:none;')
+											img#lista_votos_post_img_autor(style='width:50px;height:50px;')
+											b Autor : 
+											a#lista_votos_post_autor(target='_blank')
+											br
+											b Total de votos :
+											span#lista_votos_post_total
+											br.content_datos_pagar_lvm
+											b.content_datos_pagar_lvm Ganancias :
+											span#lista_votos_post_ganancia.content_datos_pagar_lvm
+											br
+											b.content_datos_pagar_lvm Fecha de pago :
+											span#lista_votos_post_fecha_pago.content_datos_pagar_lvm
+
+										// /.box-body
+									// /.box
+								.col-md-8
+									.box
+										.box-header
+										center
+											a#lista_votos_post_url(href='', target='_blank')
+										hr#lista_votos_post_url_separadora
+										// /.box-header
+										#lista_votos_post_contenedor.box-body.table-responsive
+
+										// /.box-body
+									// /.box
+
+						.modal-footer.clearfix
+					// /.modal-content
+				// /.modal-dialog
+			// /.modal
+		block message-modal_login
+			#compose-modal_login.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+				a#logo_uneeverso(href='/')
+					//img(src='/img/uneeverso.png',style='position:  fixed;height:  100px;width:  100px;margin: 30px;')
+				#login-box.form-box(style='margin:60px auto 0 auto;')
+						.header.skin-blue Uneeverso
+						form( method='post')
+							.body.bg-gray
+								.form-group
+									input.form-control(type='text', name='usuario_steem', id='usuario_steem', placeholder='Usuario steem', value='',required='TRUE')
+								.form-group
+									input.form-control(type='password', name='contrasena_uneeverso' id='contrasena_uneeverso', placeholder='Contraseña de acceso a uneeverso', value='', required='TRUE')
+								a(href='/cuenta/solicitud-recuperacion-contrasena') Recuperar contraseña
+							.footer
+								a#btn-acceder.btn.bg-blue.btn-block(onclick='sesion.iniciar()') Iniciar sesión
+								a#btn-ir-registro.btn.bg-blue.btn-block(href="/registro") Registrar
+			// /.modal
+		block modal_autoridad
+			#compose-modal_autoridad.modal.fade(tabindex='-1', role='dialog', aria-hidden='true',data-backdrop="false",data-keyboard="false",style="background: #000000b5;")
+				a#logo_uneeverso(href='/')
+					//img(src='/img/uneeverso.png',style='position:  fixed;height:  100px;width:  100px;margin: 30px;')
+				#login-box.form-box(style='margin: 3% auto 0 auto;width:91%;')
+						.header.skin-blue 
+							button.cerrar_modal.close(type='button', data-dismiss='modal', aria-hidden='true',style="margin-right: 2%;margin-top: 0.5%;") 
+								span x
+							span Autorización steem-uneeverso
+						form( method='post')
+							.body.bg-gray(style="text-align: justify;")
+								.row
+									.col-md-6
+										center
+											h3
+												b Términos y condiciones
+										br
+										span  		Las presentes condiciones de uso, regulan los terminos de acceso y de uso de los servicios STEEM-UNEEVERSO proporcionados por nuestra plataforma. De ahora en adelante, la plataforma usará la información proporcionada por el usuario desde la interfaz de nuestra web, para la gestión de su participación en servicios y para la gestión de los servicios en que participe. 
+										br
+										br
+										span El usuario deberá aceptar y estar de acuerdo sobre las condiciones e informacion que se facilite desde las fuentes oficiales de 
+											a(href='https://www.uneeverso.com',target='_blank') uneeverso.
+										span En el momento de realizar la autorización STEEM-UNEEVERSO el usuario acepta y esta de acuerdo con lo establecido en los terminos y condiciones de 
+											a(href='https://www.uneeverso.com',target='_blank') uneeverso 
+										span  para los servicios vinculados a la plataforma blockchain STEEM, descritos en este documento.
+										br
+										br
+										span La autorización STEEM-UNEEVERSO permite a 
+											a(href='https://www.uneeverso.com',target='_blank') uneeverso  
+										span interactuar en el nombre del usuario según lo establecido en este documento y por entes que pueda emitir informacion oficial por 
+											a(href='https://www.uneeverso.com',target='_blank') uneeverso.
+											a(href='https://www.uneeverso.com',target='_blank') Uneeverso, 
+										span  no se hace reaponsable si el usuario participa de manera inadecuada en otras plataformas y de las actividades que realicen otras plataformas de manera incorrecta con los permisos que el usuario le proporcione.
+									.col-md-6
+										h4
+											b Interacción a permitir:
+										ul
+											li
+												span Acceso al panel de Automatización.								
+											li
+												span Serán emitidos votos automaticos desde su cuenta, según sean configurada la automatización de la misma.
+											li
+												span Seran recibidos los votos automaticos solicitados de la automatización, según los limites establecidos para el cuidado de las cuentas.
+											li
+												span El usuario podra emitir comentarios en la plataforma STEEM desde la interfaz de la plataforma de uneeverso.
+											li
+												span El usuario podra emitir votos en la plataforma STEEM desde la interfaz de la plataforma de uneeverso.										
+
+										span Es necesario que exita la autorización para gestionar la automatización. Para de esta manera, garantizar un servicio seguro y equitativo para todos.
+										br
+										br
+										span Si luego desea revocar la autorización, puede hacerlo por medio del siguiente enlace : 
+											a(href='https://steemconnect.com/revoke/@uneeverso',target='_blank') Revocar autoridad 
+											span   o en el panel de configuración para la automatización.
+										br
+										br
+										span Por seguridad de su cuenta y el servicio, si el sistema detecta que no existe la autorización a uneeverso, se desactivara su automatización en el momento que lo detecte. 
+											b Esto sera efectuado con las cuentas que ya hayan autorizado por primera ves a UNEEVERSO, para asegurar que esten de acuerdo con la nueva gestión. 
+											span  Para cualquier inquietud, se le espera en el canal 
+											a(href='https://discordapp.com/channels/389536543620071434/389544930344828928',target='_blank') #ayuda
+											span  de nuestro servidor en Discord,  
+											a(href='https://discord.gg/RBcVFbs',target='_blank') 'Invitación de acceso'.
+										br
+										//center
+											a(href='',target='_blank') Más información
+							.footer
+								a#btn-autorizar_steem.btn.bg-blue.btn-block(href="https://steemconnect.com/authorize/@uneeverso",target="_blank") Autorizar
+								button#btn-verificar_autorizacion.btn.bg-blue.btn-block(type='button',onclick="autorizacion_steem.validar_autorizacion()") Verificar autorización								
+			// /.modal
+		block javascript_global
+			// lodash -- se usa para gestionar los array de una forma mucho mas dinamica
+			script(src='/js/lodash.core.min.js')
+			// jQuery 2.0.2
+			script(src='/js/libs/jquery.min.js')
+			// Bootstrap
+			script(src='/js/bootstrap.min.js', type='text/javascript')
+			// AdminLTE App
+			script(src='/js/AdminLTE/app.js',type='text/javascript')
+			// autorizacion_steem
+			script(src='/js/pages/utilidades/autorizacion_steem.js')
+			// DATA TABES SCRIPT
+			script(src='/js/plugins/datatables/jquery.dataTables.min.js', type='text/javascript')
+			// Google-charts
+			script(src='/js/google-charts.loader.js')
+			// Firebase
+			script(src='https://www.gstatic.com/firebasejs/4.9.0/firebase.js')
+			// push.js
+			script(src='/js/push.min.js')
+			// Main js
+			script(src='/js/pages/main.js', type='text/javascript')
+			// Momentjs
+			script(src='/js/moment.js')
+			// Momentjs timezone
+			script(src='/js/moment-timezone.js')
+			// Momentjs timezone with-data
+			script(src='/js/moment-timezone-with-data.min.js')
+			// alertifyjs-js
+			script(src='/js/alertifyjs/alertify.min.js')
+			// steem-js
+			script(src='/js/steemjs/steem.min.js')
+			// Utilidades - animaciones
+			script(src='/js/pages/utilidades/animaciones.js', type='text/javascript')
+			// Utilidades - alertas
+			script(src='/js/pages/utilidades/alertas.js', type='text/javascript')
+			// Utilidades - datos
+			script(src='/js/pages/utilidades/datos.js', type='text/javascript')
+			// Utilidades - votos
+			script(src='/js/pages/utilidades/votos.js', type='text/javascript')
+			// Utilidades - configuracion
+			script(src='/js/pages/configuracion/configuracion.js', type='text/javascript')
+			// JS - page sesion
+			script(src='/js/pages/sesion.js')
+			script(type='text/javascript').
+				/*$(document).ready(function(){
+					(adsbygoogle = window.adsbygoogle || []).push({});
+						var config = {
+							apiKey:	"AIzaSyBJ697ZqdJxy4CmPozLakp1ffhw0RBq5kc",
+							authDomain: "uneevers-0.firebaseapp.com",
+							databaseURL: "https://uneevers-0.firebaseio.com",
+							projectId: "uneevers-0",
+							storageBucket: "uneevers-0.appspot.com",
+							messagingSenderId: "1083548549428",
+
+						};
+						firebase.initializeApp(config);
+						//-----------------------------------
+						Push.config({
+							FCM: config,
+							serviceWorker: './customServiceWorker.js', // Sets a custom service worker script
+							fallback: function(payload) {
+								// Code that executes on browsers with no notification support
+								// "payload" is an object containing the 
+								// title, body, tag, and icon of the notification 
+							}
+						});
+						Push.create("Hello uneeverso!", {
+							body: "How's it hangin'?",
+							icon: '/favicon.png',
+							timeout: 4000,
+							onClick: function () {
+								window.focus();
+								this.close();
+							}
+						});
+
+						if ('serviceWorker' in navigator) {
+							window.addEventListener('load', function() {
+								navigator.serviceWorker.register('/serviceWorker.min.js').then(function(registration) {
+									// Registration was successful
+									console.log('ServiceWorker registration successful with scope: ', registration.scope);
+								}).catch(function(err) {
+									// registration failed :(
+									console.log('ServiceWorker registration failed: ', err);
+								});
+							});
+						}
+						//-----------------------------------
+						var messaging = firebase.messaging();
+						messaging.requestPermission()
+						.then(function() {
+							console.log('Notification permission granted.');
+							// TODO(developer): Retrieve an Instance ID token for use with FCM.
+							// ...
+						})
+						.catch(function(err) {
+							console.log('Unable to get permission to notify.', err);
+						});
+						messaging.getToken()
+						.then(function(currentToken) {
+							console.log(currentToken)
+							if (currentToken) {
+								sendTokenToServer(currentToken);
+								updateUIForPushEnabled(currentToken);
+							} else {
+								// Show permission request.
+								console.log('No Instance ID token available. Request permission to generate one.');
+								// Show permission UI.
+								updateUIForPushPermissionRequired();
+								setTokenSentToServer(false);
+							}
+						})
+						.catch(function(err) {
+							console.log('An error occurred while retrieving token. ', err);
+							//showToken('Error retrieving Instance ID token. ', err);
+							//setTokenSentToServer(false);
+						});											
+				});*/
+		block javascript_2_capa
+		block javascript_3_capa

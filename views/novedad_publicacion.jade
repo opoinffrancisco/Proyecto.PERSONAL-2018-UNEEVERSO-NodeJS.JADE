@@ -1,0 +1,347 @@
+extends layout
+block contenido_head
+	doctype html
+	html
+		head
+			meta(charset='UTF-8')
+			title#meta_title Uneeverso
+			meta#meta_description(name='description' content='Publicación sobre novedad')
+			meta(name='author' content='@blickyer')
+			meta(name='robots',content='index,follow')
+			meta(content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no', name='viewport')
+			// bootstrap 3.0.2
+			link(href='/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+			// font Awesome
+			link(href='/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+			// Ionicons
+			link(href='/css/ionicons.min.css', rel='stylesheet', type='text/css')
+			// Morris chart
+			link(href='/css/morris/morris.css', rel='stylesheet', type='text/css')
+			// jvectormap
+			link(href='/css/jvectormap/jquery-jvectormap-1.2.2.css', rel='stylesheet', type='text/css')
+			// fullCalendar
+			link(href='/css/fullcalendar/fullcalendar.css', rel='stylesheet', type='text/css')
+			// Daterange picker
+			link(href='/css/daterangepicker/daterangepicker-bs3.css', rel='stylesheet', type='text/css')
+			// bootstrap wysihtml5 - text editor
+			link(href='/css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css', rel='stylesheet', type='text/css')
+			// iCheck for checkboxes and radio inputs
+			link(href='/css/iCheck/all.css', rel='stylesheet', type='text/css')
+			// Bootstrap Color Picker
+			link(href='/css/colorpicker/bootstrap-colorpicker.min.css', rel='stylesheet')
+			// Bootstrap time Picker
+			link(href='/css/timepicker/bootstrap-timepicker.min.css', rel='stylesheet')
+			// DATA TABLES
+			link(href='/css/datatables/jquery.dataTables.min.css', rel='stylesheet', type='text/css')
+			// demo style for icons
+			link(href='/css/AdminLTE/icons.css', rel='stylesheet', type='text/css')
+			// Ion Slider
+			link(href='/css/ionslider/ion.rangeSlider.css', rel='stylesheet', type='text/css')
+			// ion slider Nice
+			link(href='/css/ionslider/ion.rangeSlider.skinNice.css', rel='stylesheet', type='text/css')
+			// bootstrap slider
+			link(href='/css/bootstrap-slider/slider.css', rel='stylesheet', type='text/css')
+			// Theme style
+			link(href='/css/AdminLTE.css', rel='stylesheet', type='text/css')
+			// Alertas
+			link(href='/css/alertifyjs/alertify.min.css', rel='stylesheet', type='text/css')
+			// Theme style login
+			link(href='/css/style-login.css',rel='stylesheet',type='text/css')
+			// HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+			// WARNING: Respond.js doesn't work if you view the page via file://
+			//if lt IE 9
+				script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
+				script(src='https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js')
+
+			script(async,src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js')
+			script(src='https://www.googletagmanager.com/gtag/js?id=UA-115870146-1')
+			//-- Global site tag (gtag.js) - Google Analytics --
+			script(type='text/javascript').
+				window.dataLayer = window.dataLayer || [];
+				function gtag(){dataLayer.push(arguments);}
+				gtag('js', new Date());
+
+				gtag('config', 'UA-117097933-1');
+				//-- Global site tag (gtag.js) - Google Analytics --
+				//--adsense
+				//blickyer1 2749621828224514
+				//ing.francisco.ordonez 2191196972112292
+				(adsbygoogle=window.adsbygoogle||[]).push({
+					google_ad_client:"ca-pub-2191196972112292",
+					enable_page_level_ads:true
+				});
+
+block content
+	section.content(style='background:  #ffffff;height:  100%;')
+		.row
+			#sidebar_izquierdo(style='width: 24.75%;float: left;left:  0px;position:  fixed;height:  100%;border-right: 0px solid #f5f5f5;')
+				center
+					a(href='/novedad/') Volver a novedades
+			#centro_post(style='width: 50.5%;float:  left;margin-left: 24.75%')
+					center
+						img#carga_publicacion(src='/img/procesar_datos.gif' style='width: 25px;height: 25px;margin: 5px 7px;')
+					#contenido_publicacion_no_disponible(style='display: none;')
+						center
+							h3 La novedad solicitada no esta disponbile
+					#contenido_publicacion_erronea(style='display: none;')
+						center
+							h3 La novedad solicitada no existe
+					#contenido_publicacion(style='display: none;')
+						.row
+							.col-md-12
+								center
+									h2
+										b#titulo
+						.row#datos_origen(style='display:none;')
+							.col-md-12
+								img#do_img_autor(src='',style='width: 45px;height: 45px;border-radius: 100%;margin-right:  5px;')
+								b
+									a.do_nombre_autor(href='',target='_blank')
+								span.do_reputacion_autor
+								span(style='color: #777;') en 
+								b
+									a#do_etiqueta_autor(href='',target='_blank')
+								b(style='color: #777;') *
+								span.do_fecha_post(style='color: #777;')
+						hr
+						.row
+							.col-md-12
+								textarea#contenido.mdhtmlform-md(disabled='TRUE', style='display:none;',data-mdhtmlform-group='0')
+								br
+								.mdhtmlform-html(data-mdhtmlform-group='0',style='font-size: initial;')
+						//.row
+							.col-md-12
+								center
+									#etiquetas
+						br
+						//.row
+							.col-md-12
+								center
+									span(style='margin-right: 5px;') Publicado   
+									b(style='margin-right: 5px;')
+										span.do_fecha_post 
+									span(style='margin-right: 5px;')  por  
+									b(style='margin-right: 5px;')
+										a.do_nombre_autor(href='',target='_blank')
+									span.do_reputacion_autor(style='margin-right: 5px;')
+
+
+
+						#opciones_post(style='display:none;').row
+							.col-md-12
+								#opcionizquierda_central
+									a#btn_upvoto_post(onclick='novedad.upvote_novedad("#{usuario_url}","#{enlace_permanente}","#btn_upvoto_post")',style='float:left;')
+										i.fa.fa-chevron-up.btn_upvoto
+									a#btn_downvoto_post(onclick='novedad.downvote_novedad("#{usuario_url}","#{enlace_permanente}","#btn_downvoto_post")',style='float:left;')
+										i.fa.fa-chevron-up.btn_downvoto
+									#contenedor_volacion_votos.dropdown(style='float: left;margin-left:  5px;margin-right:  10px;')
+										button.btn.btn-default.dropdown-toggle(type='button',id='dropdownMenu1',data-toggle='dropdown',aria-haspopup='true',aria-expanded='true')
+											i.fa.fa-dollar
+											a.op_payout_value.enlace_griss(onclick='')
+												b
+											i.fa.fa-caret-down(style='margin-left:3px;')
+										ul.dropdown-menu(aria-labelledby='dropdownMenu1',style='text-align:  center;')
+											li
+												span Pago pendiente : $	
+												span.pago_post 
+											li
+												hr(style='margin: 2px;')
+											li
+												span Monedero : $	
+												span.pago_post_50 
+											li
+												span SP : $
+												span.pago_post_20 	
+											li
+												span Curadores : $	
+												span.pago_post_30 
+											li
+												hr(style='margin: 2px;')
+											li
+												span dentro de 
+												span.fecha_pago_post
+									.dropdown(style='float: left;margin-left:  5px;margin-right:  10px;')
+										button.btn.btn-default.dropdown-toggle(type='button',id='dropdownMenu1',data-toggle='dropdown',aria-haspopup='true',aria-expanded='true')
+											a.op_cant_votos.enlace_griss(onclick='')
+												b
+											i.fa.fa-caret-down(style='margin-left:3px;')
+										ul.lista_votantes_post.dropdown-menu(aria-labelledby='dropdownMenu1')
+								#opcionderecha
+									a.n_responder.enlace_griss(onclick='$("#nuevo-comentario").val("");$(".new_comentario").show();$("a.n_responder").hide()',style='display: inline; cursor: pointer;margin-left: 10px;')
+										span Responder
+									a.n_respuestas.enlace_griss(style='margin-left: 10px;')
+										i.fa.fa-comments(style='margin:3px;')
+									//a.habilitar_edicion(onclick='') Editar
+									a#btn-actualizar-comentarios.actualizar_comentario.enlace_griss(onclick='$(".comentarios#{enlace_permanente}").html(""),novedad.extraer_comentario("#{usuario_url}","#{enlace_permanente}",function (r__) {})',style='display: inline; cursor: pointer;margin-left: 10px;')
+										i.fa.fa-refresh(style='margin-left:3px;')
+										span Actualizar comentarios
+
+
+						hr
+					#seccion_coment(style='display: none;')
+						.row.new_comentario(style='display: none;')
+							.col-md-10
+								textarea#nuevo-comentario.mdhtmlform-md(data-mdhtmlform-group='1',style='resize: vertical; width: 100%;padding: 10px;',onkeyup='')
+								br
+								br
+								.row
+									.col-md-6
+										a#btn-nuevo-comentario.btn.bg-blue.btn-block(onclick='novedad.realizar_comentario("#{usuario_url}","#{enlace_permanente}","#nuevo-comentario")') Publicar comentario
+									.col-md-3
+										a#btn-cancelar-comentario.btn.btn-block(onclick='$("#nuevo-comentario").val("");$(".vista_previa_comentario").html("");$(".new_comentario").hide();$("a.n_responder").show()',style='color: #0073b7;background:  white;border: 1px solid #0073b7;') Cancelar
+								br
+								.row
+									span(style='margin-left: 3%;') Vista previa 
+									a(rel='nofollow',href='https://guides.github.com/features/mastering-markdown/',target='_blank', style='float:  right;margin-right: 3%;') Guía para Markdown
+								.vista_previa_comentario.mdhtmlform-html(data-mdhtmlform-group='1',style='border: 1px solid #cac7c7;border-radius: 2px;padding: 10px;overflow-wrap: break-word;word-wrap: break-word;word-break:  break-word;')
+								hr
+								br
+						.row.comentarios
+						center
+							img#carga_respuestas(src='/img/procesar_datos.gif' style='width: 25px;height: 25px;margin: 5px 7px;')
+			#sidebar_derecho(style='width: 24.75%;float: right;right:  0px;position:  fixed;height:  200px;')
+				center
+					ins.adsbygoogle(style='display: block;width: 60%;height:  400px;',data-ad-client='ca-pub-2749621828224514',data-ad-slot='7910786719',data-ad-format='auto')
+block javascript_2_capa
+	script(src='/js/editor/modernizr-2.6.2.min.js')
+	script(src='/js/editor/showdown.js')
+	script(src='/js/editor/mdhtmlform.js')
+	script(src='/js/pages/publicacion.js')
+	script(src='/js/pages/novedad.js')
+	script(type='text/javascript').
+		$('#sidebar_izquierdo_g').on('click',function(result){
+			if($('#sidebar_izquierdo_g').data('sidebar_izquierdo_g')==false){
+				$('#sidebar_izquierdo_g').data('sidebar_izquierdo_g', true)
+				$('#sidebar_izquierdo').hide()
+			}else{
+				$('#sidebar_izquierdo_g').data('sidebar_izquierdo_g', false)
+				$('#sidebar_izquierdo').show()
+			}
+		})
+		if(#{result_disponibilidad}==false){
+			$('#carga_publicacion').hide();
+			$('#contenido_publicacion_no_disponible').show();
+		}else{
+
+			$('#seccion_coment .comentarios').removeClass('comentarios').addClass('comentarios'+'#{enlace_permanente}')
+			$('#seccion_coment').attr('id', 'seccion_coment'+'#{enlace_permanente}')
+			//sesion.rest_con_api_steem(0);
+			$.ajax({
+				url: 'https://api.steemjs.com/get_content',
+				type:'GET',	
+				data:{	
+					author:'#{usuario_url}',
+					permlink:'#{enlace_permanente}',
+				},
+				beforeSend: function () {
+
+				},
+				success:  function (result) {
+						//console.log(result);
+						if(result=='' || result==null || result.id==0 ){
+							$('#carga_publicacion').hide();
+							$('#contenido_publicacion_erronea').show();
+						}else{
+							$('#do_img_autor').attr('src',  'https://steemitimages.com/45x45/https://steemitimages.com/u/'+result.author+'/avatar')
+							$('.do_nombre_autor').text(result.author)
+							$('.do_nombre_autor').attr('href','/@'+result.author)
+							$('.do_reputacion_autor').html('('+steem.formatter.reputation(result.author_reputation)+')')
+							$('#do_etiqueta_autor').text(result.category)
+							$('#do_etiqueta_autor').attr('href','/trending/'+result.category)
+							$('.do_fecha_post').html(datos.tiempo_publicacion(result.created))
+
+
+							var	contenido_publicacion = result.body
+							var	regex_youtube=/(http|https):\/\/www+.+youtube+.+[a-z]{2,10}\/+[a-z-.0-9_]+[?]+v+=[a-zA-Z-.0-9_]+/g;
+							contenido_publicacion	=	contenido_publicacion.replace(regex_youtube,'<iframe width="560" height="315" src="$&" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>').replace(/<iframe width="560" height="315" src="+(http|https):\/\/www+.+youtube+.+[a-z]{2,10}\/+[a-z-.0-9_]+[?]+v+=/g,'<iframe width="560" height="315" src="https://www.youtube.com/embed/');
+							$('#contenido').val(contenido_publicacion)
+							new MdHtmlForm($("#contenido"))
+							$('iframe').attr('width', '100%')
+							$('#nuevo-comentario').val('')
+
+							$(JSON.parse(result.json_metadata).tags).each(function (index_tags, result_tags) {
+								$('#etiquetas').append('<a href="/trending/'+result_tags+'" target="_blank"><b class="etiqueta_post">'+result_tags+'</b></a>')
+							})
+
+							var contando_votos = 0;
+							var btn_activado = false;
+							for (var o = 0; o < result.active_votes.length; o++) {
+
+								if(result.active_votes[o].percent>0){
+									contando_votos++;
+								}
+								
+								if(result.active_votes[o].percent>0 && o<=15){
+									$('.lista_votantes_post').append('<li><a href="/@'+result.active_votes[o].voter+'" target="_blank" style="padding: 0px;padding-left: 10px;">'+result.active_votes[o].voter+'</a></li>')
+								}
+
+
+
+								if(result.active_votes[o].voter==localStorage.getItem('nombre_steem') && result.active_votes[o].percent>0){
+									//console.log("votante:"+result.active_votes[o].voter);
+									$('#btn_downvoto_post i').show()
+									btn_activado = true;
+								}
+								if(result.active_votes[o].voter==localStorage.getItem('nombre_steem') && result.active_votes[o].percent==0){
+									//console.log("votante:"+result.active_votes[o].voter);
+									$('#btn_upvoto_post i').show()
+									btn_activado = true;
+								}
+
+								if((o+1)==result.active_votes.length){
+									$('.op_cant_votos').html(contando_votos)
+										if (btn_activado==false && sesion.validar()==true) {
+											$('#btn_upvoto_post i').show()
+										};
+
+
+								}
+
+
+							}
+							
+
+							if(result.pending_payout_value.toString().substring(0,5)!='0.000'){
+								$('.op_payout_value b').text(result.pending_payout_value.toString().substring(0,5));
+								$('.pago_post').text(result.pending_payout_value.toString().substring(0,5))
+								$('.pago_post_50').text((result.pending_payout_value.toString().substring(0,5)*50/100).toString().substring(0,5))
+								$('.pago_post_20').text((result.pending_payout_value.toString().substring(0,5)*20/100).toString().substring(0,5))
+								$('.pago_post_30').text((result.pending_payout_value.toString().substring(0,5)*30/100).toString().substring(0,5))	
+								$('.fecha_pago_post').text(datos.tiempo_pago_publicacion(result.cashout_time))
+								}else{
+									$('#contenedor_volacion_votos').hide()
+								}
+
+							/*$('.op_cant_votos').html(result.net_votes+' votos')
+							$(result.active_votes).each(function(index,result){
+								$('.lista_votantes_post').append('<li>'+result.voter+'</li>')
+								if(index>=15){
+									return false;
+								}
+							})*/
+
+
+							$('a.n_respuestas i').html(result.children);
+							//.sort(deMayorAMenor)
+
+							novedad.novedad_actual='#{enlace_permanente}'
+							novedad.extraer_comentario('#{usuario_url}','#{enlace_permanente}',function (r__) {})
+
+
+							$('#opciones_nodo_conexion').hide();
+							$('#carga_publicacion').hide()			
+							$('#contenido_publicacion').show()
+							$('#seccion_coment'+'#{enlace_permanente}').show()
+							$('#titulo').html(result.title)
+							$('#meta_title').text(result.title)
+							$('#datos_origen').show()
+							$('#opciones_post').show()
+							
+						}
+				},
+				error:  function(error) {
+					console.log(JSON.stringify(error));
+				}	 
+			});					
+
+		}		

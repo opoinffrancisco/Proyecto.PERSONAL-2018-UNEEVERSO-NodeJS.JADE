@@ -1,0 +1,189 @@
+extends ../perfil
+block content_sub
+	.menu_perfil_2.row
+		.col-md-12
+			//a#menu_2_url_1.menu-item(href="", style="width:150px;padding-left:50px;")
+				span General
+			a#menu_2_url_2.menu-item-active(style="width:150px;padding-left:22px;" href="")
+				span Automatización
+	br
+	.row
+		.col-md-1
+		.col-md-10		
+			ins.adsbygoogle(style='display:block',data-ad-client='ca-pub-2749621828224514',data-ad-slot='7910786719',data-ad-format='auto')
+	section#automatizacion_voto.content(style='display:none;')
+		.row
+			.col-md-6
+				if datos.estado_mantenimiento==1
+					.box.box-solid
+						.box-body.bg-yellow
+							.row
+								.col-sm-10
+									h5 Nos econtramos en mantenimiento.
+				else
+					//#avisos_bot.box.box-solid
+						.box-body
+							.row
+								.col-sm-12
+									
+										if datos.estado_mantenimiento_bot==0
+											center(style='height:  100%;padding-top: 2%;font-size: 15px;')
+												span Descanso de bot's, 
+												b Desde : #{datos.mantenimiento_bot_inicio}
+												b  - 
+												b Hasta : #{datos.mantenimiento_bot_terminar}
+												span | Hora colombia.
+										else
+											center(style='height:  100%;padding-top: 2%;font-size: 15px;')
+												span Descanso de bot's activado
+												b - 
+												b Hasta : #{datos.mantenimiento_bot_terminar}
+												span | Hora colombia.
+											hr
+											h4
+												b Durante el descanso de bot's:
+											ul
+												li
+													span La lista de espera no sera mostrada.
+												li
+													span Pueden enviar publicaciones a esperar upvotes.
+					
+					#box_configuracion.box
+						.box-header
+							// tools box
+							.pull-right.box-tools
+								button.btn.bg-blanco.btn-sm(data-widget='collapse', data-toggle='tooltip',	title='Abrir/Cerrar')
+									i.fa.fa-minus
+							// /. tools
+							i.fa.fa-gears(style='padding-right:  20px;')
+							.box-title Configuración de automatización
+						// /.box-header
+						.box-body(style="display: block;")
+							.row
+								.col-sm-12
+									.input-group
+										span.input-group-addon LIMITE VOTOS POR DIA
+										input#limite_votos_dia.form-control(type='number',min='150')
+									.input-group
+										span.input-group-addon VOTING POWER POR VOTO
+										input#cant_steem_power_auto.form-control(type='number',min='1500',max='4000')
+									b Nota : 
+									span Se deben de colocar los decimales, pero sin la ' , ' o algún otro simbolo
+									br
+									b Minimo : 
+									span #{datos.cant_minima_steem_power}
+									br
+									b Maximo : 
+									span #{datos.cant_maxima_steem_power}
+									br
+									b EJEMPLO: 1500 = 15.00%
+								// /.col
+							// /.row - inside box
+						// /.box-body
+						.box-footer(style="display: block;")
+							button#send_cfg_auto_btn.btn.bg-blanco.btn-sm(data-toggle='tooltip',	title='Presione para guardar', style="float:pull-right;", onclick='perfil_configuracion_automatizacion.guardar_cfg_auto()')
+										.glyphicon.glyphicon-floppy-saved
+						// /.box-footer
+					// /.box
+					
+			.col-md-6
+				#box_autorizacion.box
+					//.box-header
+						// tools box
+						.pull-right.box-tools
+							button.btn.bg-blanco.btn-sm(data-widget='collapse', data-toggle='tooltip',	title='Abrir/Cerrar')
+								i.fa.fa-minus
+						// /. tools
+						i.fa.fa-gears(style='padding-right:  20px;')
+						.box-title Configuración de automatización
+					// /.box-header
+					.box-body(style="display: block;")
+						.row
+							.col-sm-12
+								button#btn-migrar_autorizacion_steem_uneeverso.btn.bg-green.btn-block(style='display:none;',type='button',onclick="",data-toggle='modal' data-target='#compose-modal_autoridad')
+									span Migrar a autorización STEEM-UNEEVERSO
+								button#btn-autorizacion_steem_uneeverso.btn.bg-blue.btn-block(style='display:none;',type='button',onclick="$('#compose-modal_autoridad').modal('show')") 	
+									b Autorización STEEM-UNEEVERSO  
+								a#btn-q_autorizacion_steem_uneeverso.btn.btn-block(style='display:none;',target='_blank',href='https://steemconnect.com/revoke/@uneeverso') 
+									b Anular autorización STEEM-UNEEVERSO
+								button#btn-q_verificar_autorizacion.btn.btn-block(style='display:none;',type='button',onclick="autorizacion_steem.validar_autorizacion()") Verificar autorización
+							// /.col
+						// /.row - inside box
+					// /.box-body
+					//.box-footer(style="display: block;")
+					// /.box-footer
+				// /.box
+block modal_autoridad
+	#compose-modal_autoridad.modal.fade(tabindex='-1', role='dialog', aria-hidden='true',data-backdrop="true",data-keyboard="true",style="background: #000000b5;")
+		a#logo_uneeverso(href='/')
+			//img(src='/img/uneeverso.png',style='position:  fixed;height:  100px;width:  100px;margin: 30px;')
+		#login-box.form-box(style='margin: 3% auto 0 auto;width:91%;')
+				.header.skin-blue 
+					button.cerrar_modal.close(type='button', data-dismiss='modal', aria-hidden='true',style="margin-right: 2%;margin-top: 0.5%;") 
+						span x				
+					span Autorización steem-uneeverso
+				form( method='post')
+					.body.bg-gray(style="text-align: justify;")
+						.row
+							.col-md-6
+								center
+									h3
+										b Términos y condiciones
+								br
+								span  		Las presentes condiciones de uso, regulan los terminos de acceso y de uso de los servicios STEEM-UNEEVERSO proporcionados por nuestra plataforma. De ahora en adelante, la plataforma usará la información proporcionada por el usuario desde la interfaz de nuestra web, para la gestión de su participación en servicios y para la gestión de los servicios en que participe. 
+								br
+								br
+								span El usuario deberá aceptar y estar de acuerdo sobre las condiciones e informacion que se facilite desde las fuentes oficiales de 
+									a(href='https://www.uneeverso.com',target='_blank') uneeverso.
+								span En el momento de realizar la autorización STEEM-UNEEVERSO el usuario acepta y esta de acuerdo con lo establecido en los terminos y condiciones de 
+									a(href='https://www.uneeverso.com',target='_blank') uneeverso 
+								span  para los servicios vinculados a la plataforma blockchain STEEM, descritos en este documento.
+								br
+								br
+								span La autorización STEEM-UNEEVERSO permite a 
+									a(href='https://www.uneeverso.com',target='_blank') uneeverso  
+								span interactuar en el nombre del usuario según lo establecido en este documento y por entes que pueda emitir informacion oficial por 
+									a(href='https://www.uneeverso.com',target='_blank') uneeverso.
+									a(href='https://www.uneeverso.com',target='_blank') Uneeverso, 
+								span  no se hace reaponsable si el usuario participa de manera inadecuada en otras plataformas y de las actividades que realicen otras plataformas de manera incorrecta con los permisos que el usuario le proporcione.
+							.col-md-6
+								h4
+									b Interacción a permitir:
+								ul
+									li
+										span Acceso al panel de Automatización.								
+									li
+										span Serán emitidos votos automaticos desde su cuenta, según sean configurada la automatización de la misma.
+									li
+										span Seran recibidos los votos automaticos solicitados de la automatización, según los limites establecidos para el cuidado de las cuentas.
+									li
+										span El usuario podra emitir comentarios en la plataforma STEEM desde la interfaz de la plataforma de uneeverso.
+									li
+										span El usuario podra emitir votos en la plataforma STEEM desde la interfaz de la plataforma de uneeverso.										
+
+								span Es necesario que exita la autorización para gestionar la automatización. Para de esta manera, garantizar un servicio seguro y equitativo para todos.
+								br
+								br
+								span Si luego desea revocar la autorización, puede hacerlo por medio del siguiente enlace : 
+									a(href='https://steemconnect.com/revoke/@uneeverso',target='_blank') Revocar autoridad 
+									span   o en el panel de configuración para la automatización.
+								br
+								br
+								span Por seguridad de su cuenta y el servicio, si el sistema detecta que no existe la autorización a uneeverso, se desactivara su automatización en el momento que lo detecte. 
+									b Esto sera efectuado con las cuentas que ya hayan autorizado por primera ves a UNEEVERSO, para asegurar que esten de acuerdo con la nueva gestión. 
+									span  Para cualquier inquietud, se le espera en el canal 
+									a(href='https://discordapp.com/channels/389536543620071434/389544930344828928',target='_blank') #ayuda
+									span  de nuestro servidor en Discord,  
+									a(href='https://discord.gg/RBcVFbs',target='_blank') 'Invitación de acceso'.
+								br
+								//center
+									a(href='',target='_blank') Más información
+					.footer
+						a#btn-autorizar_steem.btn.bg-blue.btn-block(href="https://steemconnect.com/authorize/@uneeverso",target="_blank") Autorizar
+						button#btn-verificar_autorizacion.btn.bg-blue.btn-block(type='button',onclick="autorizacion_steem.validar_autorizacion()") Verificar autorización							
+	// /.modal
+block javascript_3_capa
+	// JS - page perfil_automatizacion
+	script(src='/js/pages/perfil_extends/perfil_automatizacion.js')
+	// JS - page perfil_configuracion_automatizacion
+	script(src='/js/pages/perfil_extends/perfil_configuracion_automatizacion.js')

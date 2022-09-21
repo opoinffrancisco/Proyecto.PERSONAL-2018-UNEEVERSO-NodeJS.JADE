@@ -1,0 +1,198 @@
+extends layout
+block content
+	// Content Header (Page header)
+	section.content-header
+		h1
+			| Gestión de novedades
+	// Main content
+	section.content
+		
+		if error_bot==true
+			.row
+				.col-md-12
+					// Danger box
+					.box.box-solid.box-danger
+						.box-header
+							h3.box-title Error
+							.box-tools.pull-right
+								button.btn.btn-danger.btn-sm(data-widget='remove')
+									i.fa.fa-times
+						.box-body
+							center
+								b#mensaje_error #{mensaje_error}
+						// /.box-body
+					// /.box
+				// /.col
+			// /.row	
+		.row
+			.col-xs-12
+				if id_perfil == 1
+					.box
+						.modal-footer(style='margin-top:0px;')
+							button.btn.btn-primary.pull-left(data-toggle='modal', data-target='#compose-modal_registro ')
+								| Ingresar novedad
+				.box
+					//.box-header
+						h3.box-title Data Table With Full Features
+					// /.box-header
+					.box-body.table-responsive
+						table#example1.table.table-bordered.table-striped(data-order='[[ 0, &quot;desc&quot; ]]')
+							thead
+								tr
+									th N°.C.
+									th
+										center 
+											b Publicación
+									th
+										center
+											b( data-toggle='tooltip', title='Ver novedad') V.N.
+									th
+										center 
+											b( data-toggle='tooltip', title='Fecha de registro desde uneeverso') F. Registro					
+									th Estado
+									if id_perfil == 1
+										th Opciones
+							tbody
+								each b_datos in datos.result
+									tr
+										td #{b_datos.id}
+										td 
+											a(href='https://steemit.com/#{b_datos.etiqueta}/@#{b_datos.nombre_autor}/#{b_datos.url}',target='_blank')
+												span #{b_datos.nombre_muestra}
+										td 
+											a(href='/novedad/#{b_datos.url}/@#{b_datos.nombre_autor}',target='_blank')
+												span ver
+										td #{b_datos.fecha_registro}
+										if b_datos.estado == 1
+											td ON
+										else
+											td OFF
+										if id_perfil == 1
+											td
+												button(data-toggle='modal', data-target='#compose-modal_edicion ',onclick='novedades.cargar(this)',
+												data-b_id_novedad='#{b_datos.id}',
+												data-b_nombre_muestra='#{b_datos.nombre_muestra}',
+												data-b_nombre_autor='#{b_datos.nombre_autor}',
+												data-b_url='#{b_datos.url}',
+												data-b_url_imagen='#{b_datos.url_imagen}',
+												data-b_etiqueta='#{b_datos.etiqueta}',
+												data-b_estado='#{b_datos.estado}',style='padding-right: 3px;')
+													i.fa.fa-fw.fa-edit
+												form(action='/admin/novedad/cambiar_estado', method='post',style='width:  auto;float: left;')
+													input.form-control(name='id_novedad', type='number', style='display:none;',value='#{b_datos.id}')
+													if b_datos.estado == 1
+														input.form-control(name='estado', type='number', style='display:none;',value='0')
+													else
+														input.form-control(name='estado', type='number', style='display:none;',value='1')
+													button(type='submit', data-toggle='tooltip', title='Cambiar estado') E
+							tfoot
+								tr
+									th N°.C.
+									th
+										center 
+											b Publicación
+									th
+										center
+											b( data-toggle='tooltip', title='Ver novedad') V.N.
+									th
+										center 
+											b( data-toggle='tooltip', title='Fecha de registro desde uneeverso') F. Registro
+									th Estado
+									if id_perfil == 1
+										th Opciones
+					// /.box-body
+				// /.box
+	// /.content
+block message-modal
+	// COMPOSE MESSAGE MODAL REGISTRO
+	#compose-modal_registro.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+		.modal-dialog
+			.modal-content
+				.modal-header
+					button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+					h4.modal-title
+						i.fa.fa-envelope-o  
+						|     Novedad
+				form
+					.modal-body
+						.row
+							.col-md-12
+								.form-group
+									.input-group
+										span.input-group-addon Url de publicación steem:
+										input#b_url_publicacion.form-control(name='url_publicacion', type='text', placeholder='Url de publicación steem')
+					.modal-footer.clearfix
+						a#send_url_btn.btn.bg-blue.btn-block(onclick='novedades.guardar_url()') 		Guardar
+			// /.modal-content
+		// /.modal-dialog
+	// /.modal
+	//--------------------------------------------------------------------
+	// COMPOSE MESSAGE MODAL EDICION
+	#compose-modal_edicion.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+		.modal-dialog
+			.modal-content
+				.modal-header
+					button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+					h4.modal-title
+						i.fa.fa-envelope-o  
+						|     Editar novedad
+				form(action='/admin/novedad/editar', method='post')
+					.modal-body
+						.row(style='display:none;')
+							.col-md-6
+								.form-group
+									.input-group
+										span.input-group-addon ID:
+										input#b_id_novedad.form-control(name='id_novedad', type='number')
+
+						.row
+							.col-md-12
+								.form-group
+									.input-group
+										span.input-group-addon Nombre de muestra:
+										input#b_nombre_muestra.form-control(name='nombre_muestra', type='text', placeholder='Nombre')
+						.row
+							.col-md-12
+								.form-group
+									.input-group
+										span.input-group-addon Nombre de autor:
+										input#b_nombre_autor.form-control(name='nombre_autor', type='text', placeholder=' Nombre de autor ')
+						.row
+							.col-md-12
+								.form-group
+									.input-group
+										span.input-group-addon Url:
+										input#b_url.form-control(name='url', type='text', placeholder='Url steem ')
+						.row
+							.col-md-12
+								.form-group
+									.input-group
+										span.input-group-addon Url de imagen:
+										input#b_url_imagen.form-control(name='url_imagen', type='text', placeholder='Url de imagen')
+						.row
+							.col-md-6
+								.form-group
+									.input-group
+										span.input-group-addon Etiqueta:
+										input#b_etiqueta.form-control(name='etiqueta', type='text', placeholder='Etiqueta')
+							.col-md-6
+								.form-group
+									.input-group
+										span.input-group-addon Estado:
+										input#b_estado.form-control(name='estado', type='number', placeholder='')
+					.modal-footer.clearfix
+						button.btn.btn-primary.pull-left(type='submit')
+							| Guardar
+			// /.modal-content
+		// /.modal-dialog
+	// /.modal
+block javascript
+	// DATA TABES SCRIPT
+	script(src='/js/plugins/datatables/jquery.dataTables.js', type='text/javascript')
+	script(src='/js/plugins/datatables/dataTables.bootstrap.js', type='text/javascript')
+	// page script
+	script(src='/js/AdminLTE/tables/data.js',type='text/javascript')
+	// page perfil_automatizacion
+	script(src='/js/pages/perfil_extends/perfil_automatizacion.js',type='text/javascript')
+	// page novedades
+	script(src='/js/pages/admin/novedades.js',type='text/javascript')

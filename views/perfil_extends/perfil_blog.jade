@@ -1,0 +1,23 @@
+extends ../perfil
+block content_sub
+	section.content
+		.mailbox.row
+			.col-xs-2
+			.col-xs-8
+				#catalogo_cont(style='display:none;')
+				#img_loag_catalogo_cont.box
+					.row
+						.col-md-12
+							center
+								img(src='/img/procesar_datos.gif' style='width: 25px;height: 25px;margin: 5px 7px;')
+			.col-xs-2
+				ins.adsbygoogle(style='display:block',data-ad-client='ca-pub-2749621828224514',data-ad-slot='7910786719',data-ad-format='auto')
+
+block javascript_3_capa
+	// JS - page perfil_blog
+	script(src='/js/pages/perfil_extends/perfil_blog.js')
+	script(type='text/javascript').
+		$(document).ready(function(){
+			$('#img_loag_catalogo_cont').hide()
+			perfil_blog.iniciar_paginacion_index()
+		});

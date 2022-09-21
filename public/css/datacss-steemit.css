@@ -1,0 +1,128 @@
+table {
+  width: 100%;
+  margin-bottom: 1rem;
+  border-radius: 3px; }
+  thead, tbody, tfoot {
+    border: 1px solid #f1f1f1;
+    background-color: #fefefe; }
+  caption {
+    padding: 0.5rem 0.625rem 0.625rem;
+    font-weight: bold; }
+  thead {
+    background: #f8f8f8;
+    color: #333333; }
+  tfoot {
+    background: #f1f1f1;
+    color: #333333; }
+  thead tr, tfoot tr {
+    background: transparent; }
+  thead th, thead td, tfoot th, tfoot td {
+    padding: 0.5rem 0.625rem 0.625rem;
+    font-weight: bold;
+    text-align: left; }
+  tbody th, tbody td {
+    padding: 0.5rem 0.625rem 0.625rem; }
+  tbody tr:nth-child(even) {
+    border-bottom: 0; 
+    background-color: #f1f1f1; }
+  table.unstriped tbody {
+    background-color: #fefefe; }
+    table.unstriped tbody tr {
+      border-bottom: 0;
+      border-bottom: 1px solid #f1f1f1;
+      background-color: #fefefe; }
+
+  table.show-for-print {
+    display: table !important; }
+  thead.show-for-print {
+    display: table-header-group !important; }
+  tbody.show-for-print {
+    display: table-row-group !important; }
+  tr.show-for-print {
+    display: table-row !important; }
+  td.show-for-print {
+    display: table-cell !important; }
+  th.show-for-print {
+    display: table-cell !important; }
+
+
+@media screen and (max-width: 63.9375em) {
+  table.stack thead {
+    display: none; }
+  table.stack tfoot {
+    display: none; }
+  table.stack tr,
+  table.stack th,
+  table.stack td {
+    display: block; }
+  table.stack td {
+    border-top: 0; } }
+
+table.scroll {
+  display: block;
+  width: 100%;
+  overflow-x: auto; }
+
+table.hover thead tr:hover {
+  background-color: #f3f3f3; }
+
+table.hover tfoot tr:hover {
+  background-color: #ececec; }
+
+table.hover tbody tr:hover {
+  background-color: #f9f9f9; }
+
+table.hover:not(.unstriped) tr:nth-of-type(even):hover {
+  background-color: #ececec; }
+
+table {
+  box-shadow: inset 0 0 0 -1px red; }
+
+
+table.Market__open-orders thead tr :nth-child(3),
+table.Market__open-orders thead tr :nth-child(4),
+table.Market__open-orders thead tr :nth-child(5),
+table.Market__open-orders thead tr :nth-child(6), table.Market__open-orders tbody tr :nth-child(3),
+table.Market__open-orders tbody tr :nth-child(4),
+table.Market__open-orders tbody tr :nth-child(5),
+table.Market__open-orders tbody tr :nth-child(6) {
+  text-align: right; }
+
+table.Market__open-orders thead th.sortable {
+  cursor: pointer; }
+
+table.Market__open-orders th.activesort--asc::after {
+  content: ' ';
+  float: right;
+  margin-top: 10px;
+  margin-left: 10px;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid black; }
+
+table.Market__open-orders th.activesort--desc::after {
+  content: ' ';
+  float: right;
+  margin-top: 10px;
+  margin-left: 10px;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid black; }
+
+table.Market__trade-history thead tr :nth-child(3),
+table.Market__trade-history thead tr :nth-child(4),
+table.Market__trade-history thead tr :nth-child(5), table.Market__trade-history tbody tr :nth-child(3),
+table.Market__trade-history tbody tr :nth-child(4),
+table.Market__trade-history tbody tr :nth-child(5) {
+  text-align: right; }
+
+table.Market__orderbook > tbody > tr.animate, table.Market__trade-history > tbody > tr.animate {
+  background-color: #d1d2d2; }
+
+tr {
+  transition: background-color 750ms linear; }
+

@@ -1,0 +1,191 @@
+doctype html
+html
+	head
+		meta(charset='UTF-8')
+		title Administración U.
+		meta(name='robots',content='noindex,nofollow')
+		meta(content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no', name='viewport')
+		// bootstrap 3.0.2
+		link(href='/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+		// font Awesome
+		link(href='/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+		// Ionicons
+		link(href='/css/ionicons.min.css', rel='stylesheet', type='text/css')
+		// Morris chart
+		link(href='/css/morris/morris.css', rel='stylesheet', type='text/css')
+		// jvectormap
+		link(href='/css/jvectormap/jquery-jvectormap-1.2.2.css', rel='stylesheet', type='text/css')
+		// fullCalendar
+		link(href='/css/fullcalendar/fullcalendar.css', rel='stylesheet', type='text/css')
+		// Daterange picker
+		link(href='/css/daterangepicker/daterangepicker-bs3.css', rel='stylesheet', type='text/css')
+		// bootstrap wysihtml5 - text editor
+		link(href='/css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css', rel='stylesheet', type='text/css')
+		// iCheck for checkboxes and radio inputs
+		link(href='/css/iCheck/all.css', rel='stylesheet', type='text/css')
+		// Bootstrap Color Picker
+		link(href='/css/colorpicker/bootstrap-colorpicker.min.css', rel='stylesheet')
+		// Bootstrap time Picker
+		link(href='/css/timepicker/bootstrap-timepicker.min.css', rel='stylesheet')
+		// DATA TABLES
+		link(href='/css/datatables/dataTables.bootstrap.css', rel='stylesheet', type='text/css')
+		// demo style for icons
+		link(href='/css/AdminLTE/icons.css', rel='stylesheet', type='text/css')
+		// Ion Slider
+		link(href='/css/ionslider/ion.rangeSlider.css', rel='stylesheet', type='text/css')
+		// ion slider Nice
+		link(href='/css/ionslider/ion.rangeSlider.skinNice.css', rel='stylesheet', type='text/css')
+		// bootstrap slider
+		link(href='/css/bootstrap-slider/slider.css', rel='stylesheet', type='text/css')
+		// Theme style
+		link(href='/css/AdminLTE.css', rel='stylesheet', type='text/css')
+		// Alertas
+		link(href='/css/alertifyjs/alertify.min.css', rel='stylesheet', type='text/css')
+		// Theme style login
+		link(href='/css/style-login.css',rel='stylesheet',type='text/css')
+		// Theme style
+		link(href='/css/admin/style_admin.css', rel='stylesheet', type='text/css')
+		// HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+		// WARNING: Respond.js doesn't work if you view the page via file://
+		//if lt IE 9
+			script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
+			script(src='https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js')
+		script(src='https://www.googletagmanager.com/gtag/js?id=UA-115870146-1')
+		//-- Global site tag (gtag.js) - Google Analytics --
+		script(type='text/javascript').
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-115870146-1');
+		//-- Global site tag (gtag.js) - Google Analytics --			
+	body.skin-blue.fixed(onload='admin.app()')
+		// header logo: style can be found in header.less
+		header.header
+			a.logo(href='/admin/index',style='font-family: initial;font-size: 30px;')
+				// Add the class icon to your logo image or logo icon to add the margining
+				| Uneeverso 
+				span(style='font-size:10px;color:#ccc;')  BETA
+			// Header Navbar: style can be found in header.less
+			nav.navbar.navbar-static-top(role='navigation')
+				// Sidebar toggle button
+				a.navbar-btn.sidebar-toggle(href='#', data-toggle='offcanvas', role='button')
+					span.sr-only Toggle navigation
+					span.icon-bar
+					span.icon-bar
+					span.icon-bar
+				.navbar-right
+					
+					select#opciones_nodo_conexion.navbar-btn.dropdown.notifications-menu.dropdown-toggle(style='padding:9px 5px;', onchange='sesion.opciones_nodo_conexion()')
+						option(value='0', selected='TRUE') Si precencia un error: Seleccione un nodo de conexión 
+						option(value='api.steemit.com') api.steemit.com
+						option(value='rpc.buildteam.io') rpc.buildteam.io
+						option(value='steemd.privex.io') steemd.privex.io
+						option(value='steemd.minnowsupportproject.org') steemd.minnowsupportproject.org
+						option(value='steemd.pevo.science') steemd.pevo.science
+						option(value='gtg.steem.house:8090') gtg.steem.house:8090
+						option(value='seed.bitcoiner.me') seed.bitcoiner.me
+		.wrapper.row-offcanvas.row-offcanvas-left
+			// Left side column. contains the logo and sidebar
+			//(style='width: 170px;')
+			aside.left-side.sidebar-offcanvas
+				// sidebar: style can be found in sidebar.less
+				section.sidebar
+					// Sidebar user panel
+					a.url_user(target='_blank')
+						#cover_image_admin.user-panel
+							.pull-left.image
+								img#profile_image_admin.img-circle(src='', alt='')
+							.pull-left.info
+								p#nombreMuestra_admin(style='color:white;background: #3579a0ad;border-radius: 5px;padding:  2px;')
+								#reputation_admin(style='color:white;background: #3579a0ad;border-radius: 5px;padding:  2px;')
+									b Reputación : 		
+									p(style='float:right;padding-left:10px;')
+					// sidebar menu:
+					ul.sidebar-menu
+						li
+							a(href='/admin/index')
+								i.fa.fa-dashboard
+								span Resumen
+						li
+							a(href='/admin/usuarios')
+								i.fa.fa-dashboard
+								span Usuarios
+						li
+							a(href='/admin/novedad')
+								i.fa.fa-dashboard
+								span Novedades								
+						li.treeview
+							a(href='#')
+								i.fa.fa-bar-chart-o
+								span Automatización
+								i.fa.fa-angle-left.pull-right
+							ul.treeview-menu
+								li
+									a(href='/admin/bots')
+										i.fa.fa-angle-double-right
+										| Bots
+								li
+									a(href='/admin/auto_espera')
+										i.fa.fa-angle-double-right
+										| En espera
+								li
+									a(href='/admin/auto_votacion')
+										i.fa.fa-angle-double-right
+										| En votación										
+								li
+									a(href='/admin/automatizados')
+										i.fa.fa-angle-double-right
+										| Automatizados
+								li
+									a(href='/admin/opinion_desactivacion')
+										i.fa.fa-angle-double-right
+										| Opiniones de desactivación					
+						if id_perfil == 1
+							li
+								a(href='/admin/configuracion')
+									i.fa.fa-dashboard
+									span Configuración
+							li
+								a(href='/admin/migrar-datos')
+									i.fa.fa-dashboard
+									span Migrar datos								
+						li
+							a(onclick='admin.cerrar()')
+								i.fa.fa-th
+								span Cerrar sesión
+
+				// /.sidebar
+			// Right side column. Contains the navbar and content of the page
+			//(style='margin-left:  170px;')
+			aside.right-side
+				block content
+			// /.right-side
+		// ./wrapper
+		block message-modal
+		block javascript_global
+			// jQuery 2.0.2
+			script(src='/js/libs/jquery.min.js')
+			// Bootstrap
+			script(src='/js/bootstrap.min.js', type='text/javascript')
+			// AdminLTE App
+			script(src='/js/AdminLTE/app.js', type='text/javascript')
+			// Main js
+			script(src='/js/pages/main.js', type='text/javascript')
+			// Momentjs
+			script(src='/js/moment.js')
+			// alertifyjs-js
+			script(src='/js/alertifyjs/alertify.min.js')
+			// steem-js
+			script(src='/js/steemjs/steem.min.js')
+			// Utilidades - alertas
+			script(src='/js/pages/utilidades/alertas.js', type='text/javascript')
+			// page animaciones
+			script(src='/js/pages/utilidades/animaciones.js',type='text/javascript')
+			// Utilidades - configuracion
+			script(src='/js/pages/configuracion/configuracion.js', type='text/javascript')
+			// JS - page sesion
+			script(src='/js/pages/sesion.js')
+			// JS - page admin
+			script(src='/js/pages/admin/admin.js')    
+		block javascript

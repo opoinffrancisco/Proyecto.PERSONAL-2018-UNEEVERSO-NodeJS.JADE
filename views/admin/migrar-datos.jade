@@ -1,0 +1,40 @@
+extends layout
+block content
+	// Content Header (Page header)
+	section.content-header
+		h1
+			| Gestión de migración de datos
+	// Main content
+	section.content
+		.row
+			.col-xs-12
+				.box
+					//.box-header
+						h3.box-title Data Table With Full Features
+					// /.box-header
+					.box-body.table-responsive
+						.row
+							.col-md-3
+							.col-md-6
+								form#migrar_datos(method='post' action='/admin/migrar-datos/importar' enctype='multipart/form-data')
+									.body.bg-gray
+										.form-group
+											input.form-control(type='password',  id='key_public',name='key_public', placeholder='Token de control', value='', required='TRUE')
+										.form-group
+											input.form-control(type='file',  name='archivodb',id='archivodb',required='TRUE')
+									.footer
+										a#btn-exportar.btn.bg-blue.btn-block(onclick='datos.exportar()') Exportar 
+										.form-group
+											button.form-control.btn.bg-blue.btn-block(type='submit',  name='btn-importar',id='btn-importar',required='TRUE') Importar
+
+
+					// /.box-body
+				// /.box
+	// /.content
+block message-modal
+
+block javascript
+	// page usuarios
+	script(src='/js/pages/admin/usuarios.js',type='text/javascript')
+	// Utilidades - datos
+	script(src='/js/pages/utilidades/datos.js',type='text/javascript')

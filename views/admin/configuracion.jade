@@ -1,0 +1,136 @@
+extends layout
+block content
+	// Content Header (Page header)
+	section.content
+		.row
+			.col-md-12
+				form#configuraciones(method='post',action='/admin/configuracion/guardar')
+					//.collapsed-box
+					.box
+						.box-header
+							// tools box
+							.pull-right.box-tools
+								button.btn.bg-blanco.btn-sm(type='button',data-widget='collapse', data-toggle='tooltip',	title='Abrir/Cerrar')
+									i.fa.fa-minus
+							// /. tools
+							i.glyphicon.glyphicon-chevron-up(style='padding-right:  20px;')
+							.box-title Configurar uneeverso
+						// /.box-header
+						.box-body(style="display: block;")
+							.row
+								.col-sm-6
+									.input-group
+										span.input-group-addon Colocar uneeverso en mantenimiento
+										input.form-control(type='number', value='#{datos.result.estado_mantenimiento}', name='estado_mantenimiento',id='estado_mantenimiento',min='0',max='1', required='TRUE')
+								.col-sm-6
+									.input-group
+										span.input-group-addon Colocar los bots en mantenimiento
+										input.form-control(type='number',value='#{datos.result.estado_mantenimiento_bot}',name='estado_mantenimiento_bot',id='estado_mantenimiento_bot',min='0',max='1', required='TRUE')
+									.input-group
+										span.input-group-addon Hora de inicio
+										input.form-control(type='text',value='#{datos.result.mantenimiento_bot_inicio}',name='mantenimiento_bot_inicio',id='mantenimiento_bot_inicio',min='0',max='1', required='TRUE')
+									.input-group
+										span.input-group-addon Hora de finalización
+										input.form-control(type='text',value='#{datos.result.mantenimiento_bot_terminar}',name='mantenimiento_bot_terminar',id='mantenimiento_bot_terminar',min='0',max='1',, required='TRUE')
+									span La hora esta atrasada 60:00 min a la de Venezuela.
+
+							hr
+							h3	Nodo de conexión para el servidor
+							.row
+								.col-sm-8
+									.input-group
+										span.input-group-addon Nodo
+										input#nodo_conexion_steem_servidor.form-control(type='text', value='#{datos.result.nodo_conexion_steem_servidor}',name='nodo_conexion_steem_servidor', required='TRUE')
+											
+							hr
+							h3	Steem power por voto
+							.row
+								.col-sm-6
+									.input-group
+										span.input-group-addon Cantidad miníma
+										input#cant_minima.form-control(type='number', value='#{datos.result.cant_minima_steem_power}',name='cant_minima', required='TRUE')
+											
+								.col-sm-6
+									.input-group
+										span.input-group-addon Cantidad maxíma
+										input#cant_maxima.form-control(type='number',value='#{datos.result.cant_maxima_steem_power}', name='cant_maxima', required='TRUE')
+											
+								// /.col
+							// /.row - inside box
+							hr
+							h3	Votos diarios por votante
+							.row
+								.col-sm-6
+									.input-group
+										span.input-group-addon Cantidad
+										input#limit_votos_votante.form-control(type='number', value='#{datos.result.limit_votos_votante}',name='limit_votos_votante', required='TRUE')
+											
+								// /.col
+							// /.row - inside box							
+							hr
+							h3	Usuario promotor
+							.row
+								.col-sm-6
+									.input-group
+										span.input-group-addon Usuario steem
+										input#promotor_usuario.form-control(type='text', value='#{datos.result.promotor_usuario}',name='promotor_usuario', required='TRUE')
+									br
+									.input-group
+										span.input-group-addon WIF PRIV POSTING
+										input#promotor_wif_priv_posting.form-control(type='text',value='#{datos.result.promotor_wif_priv_posting}', name='promotor_wif_priv_posting', required='TRUE')
+								.col-sm-6
+									.table-responsive
+										table#example1.table.table-bordered.table-striped
+											thead
+												tr
+													th N°.C.
+													th Nombre de usuario
+													th Perfil
+													if id_perfil == 1
+														th Selección
+											tbody
+
+												each u_datos in datos_usuarios.result
+													tr
+														td 
+															center
+																span #{u_datos.id}
+														td #{u_datos.nombre_steem}
+														td
+															center
+																span #{u_datos.id_perfil}
+														if id_perfil == 1
+															td
+																center
+																	button(data-toggle='modal', data-target='#compose-modal',onclick='configuracion.cargar(this)',
+																	data-nombre_steem='#{u_datos.nombre_steem}',
+																	data-wif_post_priv_steem='#{u_datos.wif_post_priv_steem}',style='padding-right: 3px;')
+																		i.fa.fa-fw.fa-backward
+											tfoot
+												tr
+													th N°.C.
+													th Nombre de usuario
+													th Perfil
+													if id_perfil == 1
+														th Selección
+									// /.box-body											
+
+								// /.col
+							// /.row - inside box							
+						// /.box-body
+						if id_perfil == 1
+							.box-footer(style="display: block;")
+								.row
+									.col-sm-3
+										.form-group
+											button.form-control.btn.bg-blue.btn-block(type='submit',  name='btn-importar',id='btn-importar',required='TRUE') Guardar
+						// /.box-footer
+					// /.box
+
+				
+	// Main content
+	section.content
+	// /.content
+block javascript
+	// page configuracion
+	script(src='/js/pages/admin/configuracion.js',type='text/javascript')

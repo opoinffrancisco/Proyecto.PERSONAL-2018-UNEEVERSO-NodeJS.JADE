@@ -1,0 +1,233 @@
+extends layout
+block content
+	// Content Header (Page header)
+	section.content-header
+		h1
+			| Gestión de publicaciones en votación hace #{dias_auto} dias
+	// Main content
+	section.content
+		.row
+			if id_perfil == 1		
+				.col-xs-6
+					form#buscar_automatizados(method='post',action='/admin/auto_votacion/buscar')
+							.box.collapsed-box
+
+								.box-header(style='padding-bottom:0px;')
+									// tools box
+									.pull-right.box-tools
+										button.btn.bg-blanco.btn-sm(type='button',data-widget='collapse', data-toggle='tooltip',	title='Abrir/Cerrar')
+											i.fa.fa-minus
+									// /. tools
+									h4 Buscar publicaciones en votación
+								// /.box-header
+								.box-body(style="display: none;")
+									.row
+										.col-sm-12
+											.input-group
+												span.input-group-addon Usuario
+												input.form-control(type='text', name='nombre_steem',id='nombre_steem',required='TRUE')
+											.input-group
+												span.input-group-addon Dias de votación
+												input.form-control(type='number', name='dias_post',id='dias_post',required='TRUE')
+																						
+									// /.row - inside box
+								// /.box-body
+								.box-footer(style="display: none;")
+									.row
+										.col-sm-3
+											.form-group
+												button.form-control.btn.bg-blue.btn-block(type='submit') Buscar
+								// /.box-footer
+							// /.box
+				// /.box
+				.col-xs-6
+					form#reenviar_automatizados(method='post',action='/admin/auto_votacion/reenvio')
+							.box.collapsed-box
+
+								.box-header(style='padding-bottom:0px;')
+									// tools box
+									.pull-right.box-tools
+										button.btn.bg-blanco.btn-sm(type='button',data-widget='collapse', data-toggle='tooltip',	title='Abrir/Cerrar')
+											i.fa.fa-minus
+									// /. tools
+									h4 Re-Enviar publicaciones en votacion
+								// /.box-header
+								.box-body(style="display: none;")
+									.row
+										.col-sm-12
+											.input-group
+												span.input-group-addon Id Desde el menor
+												input.form-control(type='number', name='id_url_menor',id='id_url_menor',required='TRUE')
+											.input-group
+												span.input-group-addon Id Desde el mayor
+												input.form-control(type='number', name='id_url_mayor',id='id_url_mayor',required='TRUE')
+																						
+									// /.row - inside box
+								// /.box-body
+								.box-footer(style="display: none;")
+									.row
+										.col-sm-3
+											.form-group
+												button.form-control.btn.bg-blue.btn-block(type='submit') Re-enviar
+								// /.box-footer
+							// /.box	
+			else
+				.col-xs-12
+					form#buscar_automatizados(method='post',action='/admin/automatizados/buscar')
+							.box.collapsed-box
+
+								.box-header(style='padding-bottom:0px;')
+									// tools box
+									.pull-right.box-tools
+										button.btn.bg-blanco.btn-sm(type='button',data-widget='collapse', data-toggle='tooltip',	title='Abrir/Cerrar')
+											i.fa.fa-minus
+									// /. tools
+									i.glyphicon.glyphicon-chevron-up(style='padding-right:  20px;')
+									.box-title Buscar publicaciones en votación
+								// /.box-header
+								.box-body(style="display: none;")
+									.row
+										.col-sm-12
+											.input-group
+												span.input-group-addon Usuario
+												input.form-control(type='text', name='nombre_steem',id='nombre_steem')
+											.input-group
+												span.input-group-addon Dias de votación
+												input.form-control(type='number', name='dias_post',id='dias_post')
+																						
+									// /.row - inside box
+								// /.box-body
+								.box-footer(style="display: none;")
+									.row
+										.col-sm-3
+											.form-group
+												button.form-control.btn.bg-blue.btn-block(type='submit') Buscar
+								// /.box-footer
+							// /.box
+		.row
+			.col-xs-12
+
+				.box
+					//.box-header
+						h3.box-title Data Table With Full Features
+					// /.box-header
+					.box-body.table-responsive
+						table#example1.table.table-bordered.table-striped(data-order='[[ 0, &quot;desc&quot; ]]')
+							thead
+								tr
+									th N°.C.
+									th Publicación
+									th Cant.V.
+									th F.Registro.
+									if id_perfil == 1
+										th Opciones
+							tbody
+
+								each u_datos in datos.result
+									tr
+										td #{u_datos.id}
+										if u_datos.etiqueta != null
+											td
+												a(target='_blank',href='/#{u_datos.etiqueta}/@#{u_datos.nombre_steem}/#{u_datos.url}') #{u_datos.etiqueta}/@#{u_datos.nombre_steem}/#{u_datos.url}
+										else
+											td
+												#{u_datos.etiqueta}/@#{u_datos.nombre_steem}/#{u_datos.url}											
+										td #{u_datos.cant_voto}
+										td #{u_datos.fecha_registro}  
+										if id_perfil == 1
+											td
+												button(data-toggle='modal', data-target='#compose-modal',onclick='automatizacion.cargar(this)',
+												data-id_url='#{u_datos.id}',
+												data-etiqueta='#{u_datos.etiqueta}',
+												data-nombre_steem='#{u_datos.nombre_steem}',
+												data-url='#{u_datos.url}',
+												data-cant_voto='#{u_datos.cant_voto}',
+												data-estado='#{u_datos.estado}',
+												data-fecha_registro='#{u_datos.fecha_registro}',
+												data-fecha_votacion='#{u_datos.fecha_votacion}',style='padding-right: 3px;')
+													i.fa.fa-fw.fa-edit
+							tfoot
+								tr
+									th N°.C.
+									th Publicación
+									th Cant.V.
+									th F.Registro.
+									if id_perfil == 1
+										th Opciones
+					// /.box-body
+				// /.box			
+	// /.content
+block message-modal
+	// COMPOSE MESSAGE MODAL
+	#compose-modal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+		.modal-dialog
+			.modal-content
+				.modal-header
+					button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+					h4.modal-title
+						i.fa.fa-envelope-o  
+						|     Editar datos
+				form(action='/admin/auto_votacion/editar', method='post')
+					.modal-body
+						.row(style='display:none;')
+							.col-md-6
+								.form-group
+									.input-group
+										span.input-group-addon ID:
+										input#id_url.form-control( type='text', name='id_url')
+						.row
+							.col-md-12
+								.form-group
+									.input-group
+										span.input-group-addon Url:
+										input#u_publicacion.form-control(name='u_publicacion', type='text', placeholder='Usuario uneeverso & steem', disabled='TRUE')
+						.row										
+							.col-md-6
+								.form-group
+									.input-group
+										span.input-group-addon Etiqueta:
+										input#u_etiqueta.form-control(type='text', disabled='TRUE', name='u_etiqueta')
+							.col-md-6
+								.form-group
+									.input-group
+										span.input-group-addon Usuario:
+										input#u_nombre_s.form-control(name='u_nombre_s', type='text', disabled='TRUE')							
+						.row
+							.col-md-6					
+								.form-group
+									.input-group
+										span.input-group-addon Fecha registro:
+										input#fecha_registro.form-control(name='fecha_registro', type='text', disabled='TRUE')
+							.col-md-6
+								.form-group
+									.input-group
+										span.input-group-addon Fecha votación:
+										input#fecha_votacion.form-control(name='fecha_votacion', type='text', disabled='TRUE')
+						.row
+							.col-md-6					
+								.form-group
+									.input-group
+										span.input-group-addon Votos:
+										input#cant_voto.form-control(name='cant_voto', type='number',  disabled='TRUE')
+							.col-md-6
+								if id_perfil == 1
+									.form-group
+										.input-group
+											span.input-group-addon Estado:
+											input#estado.form-control(name='estado', type='number',min='0',max='3')
+
+
+					.modal-footer.clearfix
+						button.btn.btn-primary.pull-left(type='submit')
+							| Guardar
+			// /.modal-content
+		// /.modal-dialog
+	// /.modal
+block javascript
+	// DATA TABES SCRIPT
+	script(src='/js/plugins/datatables/jquery.dataTables.js', type='text/javascript')
+	script(src='/js/plugins/datatables/dataTables.bootstrap.js', type='text/javascript')
+	// page script
+	script(src='/js/AdminLTE/tables/data.js',type='text/javascript')
+	// page usuarios
+	script(src='/js/pages/admin/automatizacion.js',type='text/javascript')

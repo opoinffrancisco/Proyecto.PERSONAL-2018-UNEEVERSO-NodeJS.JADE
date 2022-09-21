@@ -1,0 +1,250 @@
+extends layout
+block content
+	// Content Header (Page header)
+	section.content-header
+		h1
+			| Gestión de bot
+	// Main content
+	section.content
+		
+		if error_bot==true
+			.row
+				.col-md-12
+					// Danger box
+					.box.box-solid.box-danger
+						.box-header
+							h3.box-title Error
+							.box-tools.pull-right
+								button.btn.btn-danger.btn-sm(data-widget='remove')
+									i.fa.fa-times
+						.box-body
+							center
+								b#mensaje_error #{mensaje_error}
+						// /.box-body
+					// /.box
+				// /.col
+			// /.row	
+		.row
+			.col-xs-12
+				if id_perfil == 1
+					.box
+						.modal-footer(style='margin-top:0px;')
+							button.btn.btn-primary.pull-left(data-toggle='modal', data-target='#compose-modal_registro ')
+								| Crear nuevo bot
+				.box
+					//.box-header
+						h3.box-title Data Table With Full Features
+					// /.box-header
+					.box-body.table-responsive
+						table#example1.table.table-bordered.table-striped(data-order='[[ 0, &quot;desc&quot; ]]')
+							thead
+								tr
+									th N°.C.
+									th
+										center 
+											b Nombre
+									th
+										center 
+											b( data-toggle='tooltip', title='Intervalo entre cada voto emitido (Segundos)') I.V.
+									th
+										center 
+											b( data-toggle='tooltip', title='Limite de votos a emitir por publicación') L.V.
+									th
+										center 
+											b( data-toggle='tooltip', title='Intervalo entre votacion de publicación (Minutos)') Intervalo P.
+									th
+										center 
+											b( data-toggle='tooltip', title='Plataforma de despliegue(Ejecución)') Plataforma											
+									th Estado
+									if id_perfil == 1
+										th Opciones
+							tbody
+								each b_datos in datos.result
+									tr
+										td #{b_datos.id}
+										td #{b_datos.nombre}
+										td #{b_datos.intervalo_voto}
+										td #{b_datos.limite_votos_emitir}
+										td #{b_datos.intervalo_publicacion}
+										td #{b_datos.plataforma}
+										if b_datos.estado == 1
+											td Activo
+										else
+											td Mantenimiento
+										if id_perfil == 1
+											td
+												button(data-toggle='modal', data-target='#compose-modal_edicion ',onclick='bots.cargar(this)',
+												data-b_id_bot='#{b_datos.id}',
+												data-b_nombre='#{b_datos.nombre}',
+												data-b_intervalo_voto='#{b_datos.intervalo_voto}',
+												data-b_limite_votos_emitir='#{b_datos.limite_votos_emitir}',
+												data-b_intervalo_publicacion='#{b_datos.intervalo_publicacion}',
+												data-b_estado='#{b_datos.estado}',
+												data-b_nodo_conexion='#{b_datos.nodo_conexion}',data-b_plataforma='#{b_datos.plataforma}',style='padding-right: 3px;')
+													i.fa.fa-fw.fa-edit
+												form(action='/admin/bots/cambiar_estado', method='post',style='width:  auto;float: left;')
+													input.form-control(name='id_bot', type='number', style='display:none;',value='#{b_datos.id}')
+													if b_datos.estado == 1
+														input.form-control(name='estado', type='number', style='display:none;',value='0')
+													else
+														input.form-control(name='estado', type='number', style='display:none;',value='1')
+													button(type='submit', data-toggle='tooltip', title='Cambiar estado') E
+							tfoot
+								tr
+									th N°.C.
+									th
+										center 
+											b Nombre
+									th
+										center 
+											b( data-toggle='tooltip', title='Intervalo entre cada voto emitido (Segundos)') I.V.
+									th
+										center 
+											b( data-toggle='tooltip', title='Limite de votos a emitir por publicación') L.V.
+									th
+										center 
+											b( data-toggle='tooltip', title='Intervalo entre votacion de publicación (Minutos)') Intervalo P.
+									th
+										center 
+											b( data-toggle='tooltip', title='Plataforma de despliegue(Ejecución)') Plataforma
+									th Estado
+									if id_perfil == 1
+										th Opciones
+					// /.box-body
+				// /.box
+	// /.content
+block message-modal
+	// COMPOSE MESSAGE MODAL REGISTRO
+	#compose-modal_registro.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+		.modal-dialog
+			.modal-content
+				.modal-header
+					button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+					h4.modal-title
+						i.fa.fa-envelope-o  
+						|     Crear bot
+				form(action='/admin/bots/registrar_nuevo', method='post')
+					.modal-body
+						.row
+							.col-md-6
+								.form-group
+									.input-group
+										span.input-group-addon nombre:
+										input#b_nombre.form-control(name='nombre', type='text', placeholder='Nombre', required='TRUE')
+						.row
+							.col-md-12					
+								.form-group
+									.input-group
+										span.input-group-addon Limite de votos a emitir por votación:
+										input#b_limite_votos_emitir.form-control(name='limite_votos_emitir', type='number', placeholder='Limite ', required='TRUE')
+						.row
+							.col-md-12
+								.form-group
+									.input-group
+										span.input-group-addon Intervalo entre publicación
+										input#b_intervalo_publicacion.form-control(name='intervalo_publicacion', type='number', placeholder='Intervalo entre publicación', required='TRUE')
+						.row
+							.col-md-12
+								.form-group
+									.input-group
+										span.input-group-addon Intervalo entre cada voto:
+										input#b_intervalo_voto.form-control(name='intervalo_voto', type='number', placeholder='Intervalo entre cada voto', required='TRUE')
+						.row
+							.col-md-12
+								.form-group
+									.input-group
+										span.input-group-addon Nodo de conexión:
+										input#b_nodo_conexion.form-control(name='nodo_conexion', type='text', placeholder='Nodo particular del bot', required='TRUE')
+						.row
+							.col-md-12
+								.form-group
+									.input-group
+										span.input-group-addon Plataforma
+										input#b_plataforma.form-control(name='plataforma', type='number', placeholder='Plataforma de despliegue')
+						.row
+							.col-md-12
+								h4 Recordar :
+								span Cada 30 minutos se revisa si un bot fue agregado, para agregarlo a la lista y reiniciar los bots
+					.modal-footer.clearfix
+						button.btn.btn-primary.pull-left(type='submit')
+							| Guardar
+			// /.modal-content
+		// /.modal-dialog
+	// /.modal
+	//--------------------------------------------------------------------
+	// COMPOSE MESSAGE MODAL EDICION
+	#compose-modal_edicion.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+		.modal-dialog
+			.modal-content
+				.modal-header
+					button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+					h4.modal-title
+						i.fa.fa-envelope-o  
+						|     Editar datos del bot
+				form(action='/admin/bots/editar', method='post')
+					.modal-body
+						.row(style='display:none;')
+							.col-md-6
+								.form-group
+									.input-group
+										span.input-group-addon ID:
+										input#b_id_bot.form-control(name='id_bot', type='number')
+
+						.row
+							.col-md-6
+								.form-group
+									.input-group
+										span.input-group-addon nombre:
+										input#b_nombre.form-control(name='nombre', type='text', placeholder='Nombre')
+							.col-md-6
+								.form-group
+									.input-group
+										span.input-group-addon ESTADO
+										input#b_estado.form-control(name='estado', type='number', placeholder='Estado de bot')
+						.row
+							.col-md-12					
+								.form-group
+									.input-group
+										span.input-group-addon Limite de votos a emitir por votación:
+										input#b_limite_votos_emitir.form-control(name='limite_votos_emitir', type='number', placeholder='Limite ')
+						.row
+							.col-md-6
+								.form-group
+									.input-group
+										span.input-group-addon Intervalo entre publicación
+										input#b_intervalo_publicacion.form-control(name='intervalo_publicacion', type='number', placeholder='Intervalo entre publicación')
+							.col-md-6
+								.form-group
+									.input-group
+										span.input-group-addon Plataforma
+										input#b_plataforma.form-control(name='plataforma', type='number', placeholder='Plataforma de despliegue')
+						.row
+							.col-md-6
+								.form-group
+									.input-group
+										span.input-group-addon Intervalo entre cada voto:
+										input#b_intervalo_voto.form-control(name='intervalo_voto', type='number', placeholder='Intervalo entre cada voto')
+						.row
+							.col-md-12
+								h4 Recordar :
+								span Si se cambia el 'Intervalo entre publicación' se reiniciaran todos los bots, para evitar conflictos de tiempo
+						.row
+							.col-md-12
+								.form-group
+									.input-group
+										span.input-group-addon Nodo de conexión:
+										input#b_nodo_conexion.form-control(name='nodo_conexion', type='text', placeholder='Nodo particular del bot', required='TRUE')									
+					.modal-footer.clearfix
+						button.btn.btn-primary.pull-left(type='submit')
+							| Guardar
+			// /.modal-content
+		// /.modal-dialog
+	// /.modal
+block javascript
+	// DATA TABES SCRIPT
+	script(src='/js/plugins/datatables/jquery.dataTables.js', type='text/javascript')
+	script(src='/js/plugins/datatables/dataTables.bootstrap.js', type='text/javascript')
+	// page script
+	script(src='/js/AdminLTE/tables/data.js',type='text/javascript')
+	// page bots
+	script(src='/js/pages/admin/bots.js',type='text/javascript')

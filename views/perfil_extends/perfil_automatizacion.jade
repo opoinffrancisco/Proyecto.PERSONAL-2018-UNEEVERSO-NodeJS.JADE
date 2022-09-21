@@ -1,0 +1,449 @@
+extends ../perfil
+block content_sub
+
+	br
+	.row
+		.col-md-1
+		.col-md-10		
+			ins.adsbygoogle(style='display:block',data-ad-client='ca-pub-2749621828224514',data-ad-slot='7910786719',data-ad-format='auto')
+	section#automatizacion_voto.content(style='display:none;')
+		.row
+			.col-md-6
+				if datos.estado_mantenimiento==1
+					.box.box-solid
+						.box-body.bg-yellow
+							.row
+								.col-sm-10
+									h5 Nos econtramos en mantenimiento.
+				else
+					#panel_estdo_automatizacion.box.box-solid
+						.box-body
+							.row
+								.col-sm-10
+									center
+										h4 Automatización
+								.col-sm-2
+									button#send_desac_btn_activar_modal.btn.bg-blanco.btn-sm(style='display:none;',data-toggle='modal' data-target='#compose-modal_opinion')
+										.glyphicon.glyphicon-send
+										span Activar automatización
+									button#activar_desactivar_btn.btn.bg-blanco.btn-sm(data-toggle='tooltip',title='Presione para guardar', style="float:right;",onclick='')
+										.glyphicon.glyphicon-floppy-saved
+										b  
+										span.mensaje_ac_desac
+					#avisos_bot.box.box-solid
+						.box-body
+							.row
+								.col-sm-12
+									
+										if datos.estado_mantenimiento_bot==0
+											center(style='height:  100%;padding-top: 2%;font-size: 15px;')
+												span Descanso de bot's, 
+												b Desde : #{datos.mantenimiento_bot_inicio}
+												b  - 
+												b Hasta : #{datos.mantenimiento_bot_terminar}
+												span | Hora colombia.
+										else
+											center(style='height:  100%;padding-top: 2%;font-size: 15px;')
+												span Descanso de bot's activado
+												b - 
+												b Hasta : #{datos.mantenimiento_bot_terminar}
+												span | Hora colombia.
+											hr
+											h4
+												b Durante el descanso de bot's:
+											ul
+												li
+													span La lista de espera no sera mostrada.
+												li
+													span Pueden enviar publicaciones a esperar upvotes.
+					#envio_url.box
+						.box-header
+							// tools box
+							.pull-right.box-tools
+								button.btn.bg-blanco.btn-sm(data-widget='collapse', data-toggle='tooltip',	title='Abrir/Cerrar')
+									i.fa.fa-minus
+							// /. tools
+							i.glyphicon.glyphicon-chevron-up(style='padding-right:  20px;')
+							.box-title Enviar publicación a esperar upvotes
+						// /.box-header
+						.box-body(style="display: block;")
+							.row
+								.col-sm-12
+									.input-group
+										span.input-group-addon
+											i.glyphicon.glyphicon-link
+										input#url_post_comm.form-control(type='text')
+									center
+										p Si tiene mas de 2 dias publicada, no sera automatizada.
+								// /.col
+							// /.row - inside box
+						// /.box-body
+						.box-footer(style="display: block;")
+							button#send_url_btn.btn.bg-blanco.btn-sm(data-toggle='tooltip',	title='Presione para enviar', style="float:pull-right;", onclick='perfil_automatizacion.guardar_url()')
+										.glyphicon.glyphicon-send
+						// /.box-footer
+					// /.box
+					//#box_configuracion.box
+						.box-header
+							// tools box
+							.pull-right.box-tools
+								button.btn.bg-blanco.btn-sm(data-widget='collapse', data-toggle='tooltip',	title='Abrir/Cerrar')
+									i.fa.fa-minus
+							// /. tools
+							i.fa.fa-gears(style='padding-right:  20px;')
+							.box-title Configuración de automatización
+						// /.box-header
+						.box-body(style="display: block;")
+							.row
+								.col-sm-12
+									.input-group
+										span.input-group-addon LIMITE VOTOS POR DIA
+										input#limite_votos_dia.form-control(type='number',min='150')
+									.input-group
+										span.input-group-addon VOTING POWER POR VOTO
+										input#cant_steem_power_auto.form-control(type='number',min='1500',max='4000')
+									.input-group
+										span.input-group-addon WIF PRIVATE POSTING
+										input#wif_privado_publicacion.form-control(type='password',autocomplete="new-password",data-validard='', placeholder='(Opcional) En caso de actualizar')
+									b Nota : 
+									span Se deben de colocar los decimales, pero sin la ' , ' o algún otro simbolo
+									br
+									b Minimo : 
+									span #{datos.cant_minima_steem_power}
+									br
+									b Maximo : 
+									span #{datos.cant_maxima_steem_power}
+									br
+									b EJEMPLO: 1500 = 15.00%
+								// /.col
+							// /.row - inside box
+						// /.box-body
+						.box-footer(style="display: block;")
+							button#send_cfg_auto_btn.btn.bg-blanco.btn-sm(data-toggle='tooltip',	title='Presione para guardar', style="float:pull-right;", onclick='perfil_automatizacion.guardar_cfg_auto()')
+										.glyphicon.glyphicon-floppy-saved
+						// /.box-footer
+					// /.box
+					//#detalles_url.box
+						.box-header
+							// tools box
+							.pull-right.box-tools
+								button.btn.bg-blanco.btn-sm(data-widget='collapse', data-toggle='tooltip',	title='Abrir/Cerrar')
+									i.fa.fa-minus
+							// /. tools
+							i.glyphicon.glyphicon-chevron-up(style='padding-right:  20px;')
+							.box-title Verificar detalles de votos
+						// /.box-header
+						.box-body(style="display: block;")
+							.row
+								.col-sm-12
+									.input-group
+										span.input-group-addon
+											i.glyphicon.glyphicon-link
+										input#destalles_url_post.form-control(type='text')
+									center
+										p Detalles de los votos de una publiación.
+								// /.col
+							// /.row - inside box
+						// /.box-body
+						.box-footer(style="display: block;")
+							button#send_v_votos_btn.btn.bg-blanco.btn-sm(data-toggle='tooltip',	title='Presione para enviar', style="float:pull-right;", onclick='perfil_automatizacion.verificar_votos()')
+								.glyphicon.glyphicon-send
+							button#send_v_votos_btn_activar_modal.btn.bg-blanco.btn-sm(style='display:none;',data-toggle='modal' data-target='#compose-modal_votos')
+								.glyphicon.glyphicon-send
+						// /.box-footer
+					// /.box
+
+			.col-md-6
+
+				.box.box-solid
+					.box-body
+						.row
+							.col-sm-9
+								span
+									h5 Soporte técnico en discord
+							.col-sm-3
+								a.btn.bg-blanco.btn-sm(data-toggle='tooltip',	title='Canal de ayuda', style="float:right;", href='https://discordapp.com/channels/389536543620071434/389544930344828928', target='_blank')
+									.glyphicon.glyphicon-link
+								a.btn.bg-blanco.btn-sm(data-toggle='tooltip',	title='Invitación al servidor', style="float:right;", href='https://discord.gg/RBcVFbs', target='_blank')
+									.glyphicon.glyphicon-link
+				if datos.estado_mantenimiento_bot==0 && datos.estado_mantenimiento==0
+					#lista_espera.box
+						.box-header
+							// tools box
+							.pull-right.box-tools
+								button.btn.bg-blanco.btn-sm(data-widget='collapse', data-toggle='tooltip', title='Abrir/Cerrar')
+									i.fa.fa-minus
+							// /. tools
+							i.glyphicon.glyphicon-list-alt(style='padding-right:  20px;')
+							.box-title Publicaciónes en espera para upvotes
+						// /.box-header
+						.box-body.no-padding(style="display: block;")
+							table.table.table-bordered
+								thead
+									tr
+										th Publicación
+										th(style='width: 40px')
+											center 
+												b( data-toggle='tooltip', title='Número de espera') N°.Espera
+								tbody#lista_espera_personal
+									tr
+										td No hay publicación en espera
+										td
+											center
+												span.badge 0
+						// /.box-body
+					// /.box
+				#lista_votos.box
+					.box-header
+						// tools box
+						.pull-right.box-tools
+							button.btn.bg-blanco.btn-sm(data-widget='collapse', data-toggle='tooltip', title='Abrir/Cerrar')
+								i.fa.fa-minus
+						// /. tools
+						i.glyphicon.glyphicon-list-alt(style='padding-right:  20px;')
+						.box-title Ultimas 7 Publicaciónes con upvotes automatizados
+					// /.box-header
+					.box-body.no-padding(style="display: block;")
+						table.table.table-bordered
+							thead
+								tr
+									th(style='width: 40px')
+										center 
+											b( data-toggle='tooltip', title='Detalles sobre los votantes') Detlls								
+									th Publicación
+									th 
+										center
+											b(data-toggle='tooltip', title='Fecha de emisión de votos') F. Votación
+									th(style='width: 40px')
+										center 
+											b( data-toggle='tooltip', title='Número de votos obtenidos " APROXIMADAMENTE "') N°.Votos		
+							tbody#lista_votos_personal
+								tr
+									td
+										center
+											span.badge
+									td No hay publicación automatizada
+									td --/--/----
+									td
+										center
+											span.badge 0
+					// /.box-body
+				// /.box
+				#lista_detenidos.box(style='display:none;')
+					.box-header
+						// tools box
+						.pull-right.box-tools
+							button.btn.bg-blanco.btn-sm(data-widget='collapse', data-toggle='tooltip', title='Abrir/Cerrar')
+								i.fa.fa-minus
+						// /. tools
+						i.glyphicon.glyphicon-list-alt(style='padding-right:  20px;')
+						.box-title 
+							center
+								span Publicaciónes detenidas por automatización desactivada
+					// /.box-header
+					.box-body.no-padding(style="display: block;")
+						table.table.table-bordered
+							thead
+								tr
+									th Publicación para upvotes
+									th 
+										center
+											span(data-toggle='tooltip' title='Fecha de envio para recibir upvotes') F.Envio
+							tbody#lista_detencion_personal
+								tr
+									td 
+										center
+											span No hay publicación detenida
+									td 
+										center
+											span --/--/----
+					// /.box-body
+				// /.box
+		#barra_votos.ctrl_barra_votos.row(style='position:  fixed;bottom:  0px;height: 20px;width:  100%;background: #224b63;z-index:  9999999;')
+			.col-md-9(style='margin:  0px;padding:  0px;')
+				.progress(style='background: #71a5c3;')
+					.progress-bar.progress-bar-striped.active.width-poder-voto( role='progressbar',aria-valuenow='45',aria-valuemin='0',aria-valuemax='100',style='width: 100%;/*color: white;*/')
+			//.col-md-1(style='margin:  0px;padding:  0px;color:white;border-right: 1px solid #0a151b;')
+				a(href='',style='color:white;')
+					center
+						i.fa.fa-refresh
+			.col-md-3(style='margin:  0px;padding:  0px;color:white;')
+				button#open_detalles_consumo_vp.btn.bg-blanco.btn-sm(style='display:none;',data-toggle='modal',data-target='#compose-modal_consumo_pv')
+					.glyphicon.glyphicon-send			
+				a(href='javascript:;',style='color:white;',onclick='perfil_automatizacion.activar_modal_detalles_consumo_vp()')
+					center
+						i.fa.fa-search
+						b   
+						span Ver detalles
+
+		#datos_barra_votos.ctrl_barra_votos.row(style='position:  fixed;bottom:  0px;height: 20px;width: 75%;z-index: 99999999;color: white;')
+			.row(style='margin:  0px;padding:  0px;')
+				.col-md-3(style='')
+					center
+						b PODER DE VOTO TOTAL:
+				.col-md-4(style='')
+					center(data-toggle='tooltip',	title='Votos realizados en el dia')
+						span V.R. En el día
+						span  : 
+						span.votos_r_dia_usuario.sr-only(style='position:  relative;')
+				.col-md-5(style='')
+					center(data-toggle='tooltip',	title='Poder de voto total diponible')
+						span P.V.T. Disponible 
+						span  : 
+						span.vp_disponible_usuario.sr-only(style='position:  relative;')
+
+block message-modal_capa_3
+	#compose-modal_opinion.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+		.modal-dialog(style='width: 90%;')
+			.modal-content
+				.modal-header
+					button.cerrar_modal.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+					h3.modal-title 
+						center
+							span ¿Desea desactivar la automatización?
+				.modal-body.table-responsive
+					.row
+						.col-md-12
+							.row
+								.col-md-6
+									h4 Limitaciones de la desactivación
+									br
+									b * No podra enviar publicaciones para recibir upvotes.
+									br
+									b * No podra votar automaticamente por otras publicaciones.
+									br
+									hr
+									h4 Medidas de seguridad
+									br
+									b * Sus publicaciones en espera, seran detenidas hasta que active nuevamente la automatización.
+									br
+									b * Cuando re-active la automatización, sus publicaciones detenidas pasaran al final de la lista de espera. 
+									hr
+
+									h4 ¿Necesita ayuda sobre algo importante?
+									.row
+										.col-sm-9
+											span
+												h5 Soporte técnico en discord
+										.col-sm-3
+											a.btn.bg-blanco.btn-sm(data-toggle='tooltip',	title='Canal de ayuda', style="float:right;", href='https://discordapp.com/channels/389536543620071434/389544930344828928', target='_blank')
+												.glyphicon.glyphicon-link
+											a.btn.bg-blanco.btn-sm(data-toggle='tooltip',	title='Invitación al servidor', style="float:right;", href='https://discord.gg/RBcVFbs', target='_blank')
+												.glyphicon.glyphicon-link
+								.col-md-6
+									.box
+										.modal-header
+											center
+												h4 Causa de la desactivación
+										.box-body.table-responsive
+											b Su opinión es importante.
+											textarea#opinion_desactivacion(style='resize: none;width:100%;',rows='5', required='TRUE', placeholder='Si no existe causa alguna, debe dejar una opinión de lo que le motive. Es totalmente privada. ')
+										// /.box-body
+										.modal-footer.clearfix(style='margin-top:  0px;padding:  5px 5px 5px;border-top: 0px solid #e5e5e5;')
+											.row
+												.col-md-12
+													a#btn-desactivar-auto.btn.btn-primary.pull-left(onclick='perfil_automatizacion.activar_desactivado_automatizacion()',style='width:  100%;') 
+														span Desactivar automatización
+										
+									// /.box
+			// /.modal-content
+		// /.modal-dialog
+	// /.modal
+	#compose-modal_consumo_pv.modal.fade(tabindex='-2', role='dialog', aria-hidden='true')
+		.modal-dialog(style='width: 90%;')
+			.modal-content
+				.modal-header
+					button.cerrar_modal.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+					h3.modal-title 
+						center
+							b PODER DE VOTO : 
+							span Detalles de consumo con su cuenta en el día
+					h6.modal-title 
+						center
+							b HORARIO DE VOTOS SEGÚN UNEEVERSO: 
+							span Colombia						
+					h6.modal-title 
+						center
+							span#fecha_horario_votos_STEEM
+				.modal-body.table-responsive
+					.row
+						.col-md-12
+							.box
+								#img_carga_grafico_votos
+									center
+										img(src='/img/procesar_datos.gif' style='width: 25px;height: 25px;margin: 5px 7px;')
+								#grafico_votos_consumidos(style='display: none;height: auto;width: 100%;padding:  10px;')
+								h5#gdatos_votos_consumidos(style='display: none;')
+									center
+										span Sumando el poder de voto usado en cada voto, 
+										b se han consumido : 
+										span.suma_pv_v_consumido 
+										b , y falta por consumir : 
+										span.suma_pv_v_consumir
+										span  
+										b  de los  
+										span.limite_pv_consumir_dia 
+										b  de poder de voto a consumir por dia (Consejo).
+								#barra_pv_dia.row(style='width: 100%;margin-left: 0px;padding: 10px;display: none;padding-bottom:  0px;margin-bottom:  0px;')
+									.col-md-12(style='padding:  0px;')
+										h4 Recuperando poder de voto total (PVT) : 20% de recuperación diaria.
+										.row(style='position: relative;bottom: 8px;height: 20px;width: 100%;background: rgb(34, 75, 99);/* z-index: 9999999; */display: block;margin-left: 0px;')
+											.col-md-12(style='margin:  0px;padding:  0px;')
+												.progress(style='background: #71a5c3;padding: 0px;margin:  0px;')
+													.progress-bar.width-poder-voto_ventana( role='progressbar',aria-valuenow='100',aria-valuemin='0',aria-valuemax='100',style='width: 100%;/*color: white;*/')
+													.row(style='position:  absolute;width:  100%; background: #ffffff00; margin-left:  0px;color:white;')
+														.col-md-6
+															center
+																span.barra_pv_dia_cantidad_recuperado
+														.col-md-6
+															center
+																span.barra_pv_dia_cantidad_recuperar
+					a#btn-mas-informacion-pv.btn.btn-block(style='background: white !important;color: #71a5c3 !important;border: 1px solid #71a5c3 !important;',onclick='$("#btn-mas-informacion-pv").hide(),$("#datos_calculados_pv").show()')
+						span Mas información
+					#datos_calculados_pv.row(style='display:none;')
+						.col-md-12
+							.box(style='padding:  10px;')
+								.row
+									.col-md-11
+									.col-md-1
+										a#btn-mas-informacion-pv.btn.btn-block(style='background: white !important;color: #71a5c3 !important;border: 1px solid #71a5c3 !important;',onclick='$("#btn-mas-informacion-pv").show(),$("#datos_calculados_pv").hide()')
+											b X
+								h3 Recuperación de poder de voto total (POR DÍA) : 
+								ul
+									li
+										span Actualmente, se recupera aproximadamente 0.83% de poder de voto por cada hora. 
+									li
+										span Recuperación del 19.92% en 24 horas 
+									li
+										b Margen de diferencia 0.08% sin sumar algunos digitos decimales faltantes del  0.83% .
+									li
+										span Para una sifra exacta se recuperan 20% al dia.
+								h3 Consumo adecuado del poder de voto.							
+								ul
+									li
+										h5
+											b Automatizador del voto por voto:
+										br
+										span Si actualmente usa un automatizador, debe tener en cuenta la configuracion realizada.
+										br 
+										span Normalmente se usan automatizadores para no tener que invetir tiempo en realizar votos manuales, para poder obtener ganancias del 30% de lo que genere la publicacion juntos a los demas votantes que la apoyan.
+										br
+										span Si se realizan 20 votos con 100% de poder de voto, cada uno se consume 2% del poder de voto total, para una suma de 20% consumidos de esta manera.
+										br
+										b Por lo que se aconseja disminuir el uso de votos con 100% de poder de voto y no usar otro automatizador si ya usa el de uneeverso.
+									li
+										h5 
+											b 	Votos manuales :
+										br
+										span Teniendo en cuenta que con 20 votos al dia que usen el 100% de poder de voto en cada voto, se obtiene una suma de 2000% consumidos en el dia.
+										br
+										b Por lo que aconsejamos que los votos manuales sean utilizados solo cuando se vea que sea necesario.
+
+			// /.modal-content
+		// /.modal-dialog
+	// /.modal
+
+
+block javascript_3_capa
+	// JS - page perfil_automatizacion
+	script(src='/js/pages/perfil_extends/perfil_automatizacion.js')

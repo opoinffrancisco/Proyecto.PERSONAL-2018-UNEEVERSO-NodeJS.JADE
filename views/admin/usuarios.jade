@@ -1,0 +1,172 @@
+extends layout
+block content
+	// Content Header (Page header)
+	section.content-header
+		h1
+			| Gestión de usuario
+	// Main content
+	section.content
+		.row
+			.col-xs-12
+				if id_perfil == 1
+					form#steem_power_asignaciones(method='post',action='/admin/usuarios/asignar_steem_power_voto')
+						.box.collapsed-box
+
+							.box-header(style='padding-bottom:0px;')
+								// tools box
+								.pull-right.box-tools
+									button.btn.bg-blanco.btn-sm(type='button',data-widget='collapse', data-toggle='tooltip',	title='Abrir/Cerrar')
+										i.fa.fa-minus
+								// /. tools
+								i.glyphicon.glyphicon-chevron-up(style='padding-right:  20px;')
+								.box-title Steem power upvotes - Asignaciones globales
+							// /.box-header
+							.box-body(style="display: none;")
+								.row
+									.col-sm-6
+										.input-group
+											span.input-group-addon Asignar S.P.V
+											input.form-control(type='text', name='asignar',id='asignar', required='TRUE', placeholder='Solo aca si es para todos los usuarios')
+									.col-sm-6
+										.input-group
+											span.input-group-addon Si tiene
+											input.form-control(type='text', name='si_tiene', id='si_tiene', placeholder='Con este, todo los que tienen ese S.P.V.')							
+									// /.col
+								// /.row - inside box
+								br						
+								.row
+									.col-sm-6
+										.input-group
+											span.input-group-addon Si es menor
+											input.form-control(type='text', name='si_menor',id='si_menor', placeholder='Todos los que son menor de S.P.V.')
+									.col-sm-6
+										.input-group
+											span.input-group-addon Si es mayor
+											input.form-control(type='text', name='si_mayor', id='si_mayor', placeholder='Todos los que son mayor de S.P.V.')
+
+									// /.col
+								// /.row - inside box
+							// /.box-body
+							.box-footer(style="display: none;")
+								.row
+									.col-sm-3
+										.form-group
+											button.form-control.btn.bg-blue.btn-block(type='submit') Guardar
+							// /.box-footer
+						// /.box
+
+				.box
+					//.box-header
+						h3.box-title Data Table With Full Features
+					// /.box-header
+					.box-body.table-responsive
+						table#example1.table.table-bordered.table-striped(data-order='[[ 0, &quot;desc&quot; ]]')
+							thead
+								tr
+									th N°.C.
+									th Nombre de usuario
+									//th Correo electronico
+									th Perfil
+									th A.Upv
+									th S.Power
+									th
+										center 
+											b( data-toggle='tooltip', title='Votos emitidos en el dia') V.Emitidos
+									th F.Registro											
+									if id_perfil == 1
+										th Opciones
+							tbody
+								each u_datos in datos.result
+									tr
+										td #{u_datos.id}
+										td #{u_datos.nombre_steem}
+										//td #{u_datos.correo_electronico}
+										td #{u_datos.id_perfil}
+										td #{u_datos.auto_upvotes}  
+										td #{u_datos.cant_steem_power_auto}
+										td #{u_datos.votos_dia} 
+										td(style='font-size: 12px;')	#{u_datos.fecha_registro} 
+										if id_perfil == 1
+											td
+												button(data-toggle='modal', data-target='#compose-modal',onclick='usuarios.cargar(this)',
+												data-id_usuario='#{u_datos.id}',
+												data-nombre_steem='#{u_datos.nombre_steem}',
+												data-correo_electronico='#{u_datos.correo_electronico}',
+												data-id_perfil='#{u_datos.id_perfil}',
+												data-wif_post_priv_steem='#{u_datos.wif_post_priv_steem}',
+												data-auto_upvotes='#{u_datos.auto_upvotes}',style='padding-right: 3px;')
+													i.fa.fa-fw.fa-edit
+							tfoot
+								tr
+									th N°.C.
+									th Nombre de usuario
+									//th Correo electronico
+									th Perfil
+									th A.UPv
+									th S.Power
+									th
+										center 
+											b( data-toggle='tooltip', title='Votos emitidos en el dia') V.Emitidos
+									th F.Registro
+									if id_perfil == 1
+										th Opciones
+					// /.box-body
+				// /.box
+	// /.content
+block message-modal
+	// COMPOSE MESSAGE MODAL
+	#compose-modal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+		.modal-dialog
+			.modal-content
+				.modal-header
+					button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+					h4.modal-title
+						i.fa.fa-envelope-o  
+						|     Editar datos
+				form(action='#', method='post')
+					.modal-body
+						.row(style='display:none;')
+							.col-md-6
+								.form-group
+									.input-group
+										span.input-group-addon ID:
+										input#u_id_usuario.form-control( type='text')
+
+						.row
+							.col-md-6
+								.form-group
+									.input-group
+										span.input-group-addon Usuario:
+										input#u_nombre_s.form-control(name='email_to', type='text', placeholder='Usuario uneeverso & steem', disabled='TRUE')
+							.col-md-6
+								.form-group
+									.input-group
+										span.input-group-addon Auto-upvotes:
+										input#u_auto_v.form-control(name='email_to', type='text', placeholder='Email CC', disabled='TRUE')
+						.row
+							.col-md-12					
+								.form-group
+									.input-group
+										span.input-group-addon Correo:
+										input#u_correo_e.form-control(name='email_to', type='email', placeholder='Email CC')
+						.row
+							.col-md-12
+								.form-group
+									.input-group
+										span.input-group-addon WIF PRIV POSTING:
+										input#u_wfi_posting.form-control(name='email_to', type='text', placeholder='Email TO')
+						if id_perfil == 1
+							.row
+								.col-md-6
+									.form-group
+										.input-group
+											span.input-group-addon Perfil:
+											input#u_perfil.form-control(name='u_perfil', type='text', placeholder='Perfil de usuario')
+
+					.modal-footer.clearfix
+						button.btn.btn-primary.pull-left(type='button', onclick='usuarios.guardar()')
+							| Guardar
+			// /.modal-content
+		// /.modal-dialog
+	// /.modal
+block javascript

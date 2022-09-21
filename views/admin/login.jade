@@ -1,0 +1,63 @@
+doctype html
+html.login
+  head
+    meta(charset='UTF-8')
+    title Uneeverso
+    meta(name='robots',content='noindex,nofollow')    
+    meta(content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no', name='viewport')
+    // bootstrap 3.0.2
+    link(href='../../css/bootstrap.min.css', rel='stylesheet', type='text/css')
+    // font Awesome
+    link(href='../../css/font-awesome.min.css', rel='stylesheet', type='text/css')
+    // Theme style
+    link(href='../../css/AdminLTE.css', rel='stylesheet', type='text/css')
+    // Alertas
+    link(href='/css/alertifyjs/alertify.min.css', rel='stylesheet', type='text/css')    
+    // Theme style personalizado
+    link(href='../../css/style-login.css', rel='stylesheet', type='text/css')  
+    // HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+    // WARNING: Respond.js doesn't work if you view the page via file://
+    //if lt IE 9
+      script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
+      script(src='https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js')
+  body.login
+    a#logo_uneeverso(href='/')
+      img(src='/img/uneeverso.png',style='position:  fixed;height:  100px;width:  100px;margin: 30px;')    
+    #login-box.form-box(style='margin:60px auto 0 auto;')
+      .header.skin-blue Uneeverso
+      form( method='post')
+        .body.bg-gray
+          .form-group
+            input.form-control(type='text', name='usuario_steem', id='usuario_steem', placeholder='Usuario steem', value='',required='TRUE')
+          .form-group
+            input.form-control(type='password', name='contrasena_uneeverso' id='contrasena_uneeverso', placeholder='Contraseña de acceso a uneeverso', value='', required='TRUE')
+          a(href='/cuenta/solicitud-recuperacion-contrasena') Recuperar contraseña 
+        .footer
+          a#btn-acceder.btn.bg-blue.btn-block(onclick='admin.iniciar()') Iniciar sesión
+    center
+      select#opciones_nodo_conexion.navbar-btn.dropdown.notifications-menu.dropdown-toggle(style='padding:9px 5px;', onchange='sesion.opciones_nodo_conexion()')
+        option(value='0', selected='TRUE') Si precencia un error: Seleccione un nodo de conexión 
+        option(value='api.steemit.com') api.steemit.com
+        option(value='steemd.steemit.com') steemd.steemit.com
+        option(value='steemd.privex.io') steemd.privex.io
+        option(value='steemd.minnowsupportproject.org') steemd.minnowsupportproject.org
+        option(value='steemd.pevo.science') steemd.pevo.science
+        option(value='gtg.steem.house:8090') gtg.steem.house:8090
+        option(value='seed.bitcoiner.me') seed.bitcoiner.me  
+        option(value='rpc.buildteam.io') rpc.buildteam.io  
+    // jQuery 2.0.2
+    script(src='/js/libs/jquery.min.js')
+    // Bootstrap
+    script(src='../../js/bootstrap.min.js', type='text/javascript')
+    // alertifyjs-js
+    script(src='/js/alertifyjs/alertify.min.js')
+    // Utilidades - alertas
+    script(src='../../js/pages/utilidades/alertas.js', type='text/javascript')
+    // Utilidades - animaciones
+    script(src='/js/pages/utilidades/animaciones.js', type='text/javascript')    
+    // steem-js
+    script(src='/js/steemjs/steem.min.js')
+    // JS - page login
+    script(src='/js/pages/sesion.js')
+    // JS - page admin
+    script(src='/js/pages/admin/admin.js')    

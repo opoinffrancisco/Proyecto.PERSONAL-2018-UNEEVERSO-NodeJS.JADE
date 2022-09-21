@@ -1,0 +1,183 @@
+doctype html
+html.login
+  head
+    meta(charset='UTF-8')
+    title Registro de usuario
+    meta(name='description' content='Registro de la cuenta uneeverso a usar, para disfrutar los beneficios de: Automatización, mejoras de redes sociales descentralizadas, mejora del mercado blockchain')
+    meta(name='author' content='@blickyer')
+    meta(name='robots',content='index,follow')    
+    meta(content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no', name='viewport')
+    // bootstrap 3.0.2
+    link(href='../../css/bootstrap.min.css', rel='stylesheet', type='text/css')
+    // font Awesome
+    link(href='../../css/font-awesome.min.css', rel='stylesheet', type='text/css')
+    // Theme style
+    link(href='../../css/AdminLTE.css', rel='stylesheet', type='text/css')
+    // Alertas
+    link(href='/css/alertifyjs/alertify.min.css', rel='stylesheet', type='text/css')
+    // Theme style personalizado
+    link(href='../../css/style-login.css', rel='stylesheet', type='text/css')  
+    // HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+    // WARNING: Respond.js doesn't work if you view the page via file://
+    //if lt IE 9
+      script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
+      script(src='https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js')
+    script(src='https://www.googletagmanager.com/gtag/js?id=UA-115870146-1')
+    //-- Global site tag (gtag.js) - Google Analytics --
+    script(type='text/javascript').
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-117097933-1');
+    //-- Global site tag (gtag.js) - Google Analytics --    
+  body#login.login( onload='sesion.app()')
+    a#logo_uneeverso(href='/')
+      img(src='/img/uneeverso.png',style='position:  fixed;height:  100px;width:  100px;margin: 30px;')  
+    #login-box.form-box(style='width:660px;')
+      .header.skin-blue Uneeverso: Registro de participación
+      form( method='post')
+        if estado_mantenimiento ==0
+          .body.bg-gray
+            .row
+              .col-md-6
+                .input-group(style='margin-bottom: 14.5px;')
+                  span.input-group-addon @
+                  input.form-control(type='text', name='usuario_steem', id='usuario_steem', placeholder='Ingresar usuario steem', value='',required='TRUE')
+                .form-group
+                  input.form-control(type='email', name='correo_electronico', id='correo_electronico', placeholder='Ingresar correo electronico', value='',required='TRUE')
+              .col-md-6
+                .form-group
+                  input.form-control(type='password', name='contrasena_uneeverso' id='contrasena_uneeverso', placeholder='Contraseña de gestion en uneeverso', value='', required='TRUE')
+                .form-group
+                  input.form-control(type='password', name='contrasena_uneeverso_2' id='contrasena_uneeverso_2', placeholder='Ingresar nuevamente la contraseña', value='', required='TRUE')            
+                //span.skin-red Presione el candado para obtener: Wif priv posting
+            .row
+              .col-md-12
+                .form-group
+                   button#btn-abrir_aviso_autorizacion.btn.bg-blue.btn-block(type='button',onclick='autorizacion_steem.abrir_aviso_autorizacion_r()',style='cursor:pointer;') Autorizar a uneeverso
+            //span.skin-red Atención:
+            //span.skin-red <a hreft="" target="_blank">Repositorio GitHub: Proximamente.</a>
+          .footer
+            a#btn-registro.btn.bg-blue.btn-block(onclick='sesion.registrar_usuario()') Guardar
+            a#btn-volver-login.btn.bg-blue.btn-block(href='/login') Volver
+        else
+          .body.bg-gray
+            .row
+              .col-md-12
+                center
+                  span.skin-red Nos encontramos en mantenimiento, vuelva mas tarde.
+          .footer
+            a#btn-volver-login.btn.bg-blue.btn-block(href='/login') Volver        
+    block message-modal
+      // COMPOSE MESSAGE MODAL
+      #compose-modal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+        .modal-dialog
+          .modal-content
+            .modal-header
+              button#cerrar_modal.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+              h4.modal-title
+                i.fa.fa-key
+                |     Obtener wif privado de publicación
+            .modal-body
+              h4 Paso A
+              ul
+                li Dirijase hacia steemit.com e inicie sesión.
+              h4 Paso B : Sección de token Wif publicando.
+              ul
+                li <b>Entre en su blog, ejemplo:</b> https://steemit.com/@nombre_de_usuario
+                li <b>Entre en su monedero:</b> Click en el menu 'Monedero'.
+                li <b>Entre en permisos:</b> Click en el sub menu 'Permisos'.
+              h4 Paso C : Cambiar token publicando a privado
+              ul
+                li Presione el boton <b>'Mostrar clave privada'</b> del token Publicando.
+                li Observar que el token publicación cambio y proceda a copiarlo. 
+              h4 Paso D : Ingresar token privado de publicación
+              ul
+                li Colarlo en el campo WIF del formulario de registro en Uneeverso.
+              br
+          // /.modal-content
+        // /.modal-dialog
+      // /.modal
+      #compose-modal_autoridad.modal.fade(tabindex='-1', role='dialog', aria-hidden='true',data-backdrop="true",data-keyboard="true",style="background: #000000b5;")
+        a#logo_uneeverso(href='/')
+          //img(src='/img/uneeverso.png',style='position:  fixed;height:  100px;width:  100px;margin: 30px;')
+        #login-box.form-box(style='margin: 3% auto 0 auto;width:91%;')
+            .header.skin-blue Autorización steem-uneeverso
+            form( method='post')
+              .body.bg-gray(style="text-align: justify;")
+                .row
+                  .col-md-6
+                    center
+                      h3
+                        b Términos y condiciones
+                    br
+                    span      Las presentes condiciones de uso, regulan los terminos de acceso y de uso de los servicios STEEM-UNEEVERSO proporcionados por nuestra plataforma. De ahora en adelante, la plataforma usará la información proporcionada por el usuario desde la interfaz de nuestra web, para la gestión de su participación en servicios y para la gestión de los servicios en que participe. 
+                    br
+                    br
+                    span El usuario deberá aceptar y estar de acuerdo sobre las condiciones e informacion que se facilite desde las fuentes oficiales de 
+                      a(href='https://www.uneeverso.com',target='_blank') uneeverso.
+                    span En el momento de realizar la autorización STEEM-UNEEVERSO el usuario acepta y esta de acuerdo con lo establecido en los terminos y condiciones de 
+                      a(href='https://www.uneeverso.com',target='_blank') uneeverso 
+                    span  para los servicios vinculados a la plataforma blockchain STEEM, descritos en este documento.
+                    br
+                    br
+                    span La autorización STEEM-UNEEVERSO permite a 
+                      a(href='https://www.uneeverso.com',target='_blank') uneeverso  
+                    span interactuar en el nombre del usuario según lo establecido en este documento y por entes que pueda emitir informacion oficial por 
+                      a(href='https://www.uneeverso.com',target='_blank') uneeverso.
+                      a(href='https://www.uneeverso.com',target='_blank') Uneeverso, 
+                    span  no se hace reaponsable si el usuario participa de manera inadecuada en otras plataformas y de las actividades que realicen otras plataformas de manera incorrecta con los permisos que el usuario le proporcione.
+                  .col-md-6
+                    h4
+                      b Interacción a permitir:
+                    ul
+                      li
+                        span Acceso al panel de Automatización.               
+                      li
+                        span Serán emitidos votos automaticos desde su cuenta, según sean configurada la automatización de la misma.
+                      li
+                        span Seran recibidos los votos automaticos solicitados de la automatización, según los limites establecidos para el cuidado de las cuentas.
+                      li
+                        span El usuario podra emitir comentarios en la plataforma STEEM desde la interfaz de la plataforma de uneeverso.
+                      li
+                        span El usuario podra emitir votos en la plataforma STEEM desde la interfaz de la plataforma de uneeverso.                    
+
+                    span Es necesario que exita la autorización para gestionar la automatización. Para de esta manera, garantizar un servicio seguro y equitativo para todos.
+                    br
+                    br
+                    span Si luego desea revocar la autorización, puede hacerlo por medio del siguiente enlace : 
+                      a(href='https://steemconnect.com/revoke/@uneeverso',target='_blank') Revocar autoridad 
+                      span   o en el panel de configuración para la automatización.
+                    br
+                    br
+                    span Por seguridad de su cuenta y el servicio, si el sistema detecta que no existe la autorización a uneeverso, se desactivara su automatización en el momento que lo detecte. 
+                      b Esto sera efectuado con las cuentas que ya hayan autorizado por primera ves a UNEEVERSO, para asegurar que esten de acuerdo con la nueva gestión. 
+                      span  Para cualquier inquietud, se le espera en el canal 
+                      a(href='https://discordapp.com/channels/389536543620071434/389544930344828928',target='_blank') #ayuda
+                      span  de nuestro servidor en Discord,  
+                      a(href='https://discord.gg/RBcVFbs',target='_blank') 'Invitación de acceso'.
+                    br
+                    //center
+                      a(href='',target='_blank') Más información
+
+              .footer
+                a#btn-autorizar_steem.btn.bg-blue.btn-block(href="https://steemconnect.com/authorize/@uneeverso",target="_blank") Autorizar
+                button#btn-verificar_autorizacion.btn.bg-blue.btn-block(type='button',onclick="autorizacion_steem.validar_autorizacion_r()") Verificar autorización               
+      // /.modal  
+    // jQuery 2.0.2
+    script(src='/js/libs/jquery.min.js')
+    // Bootstrap
+    script(src='../../js/bootstrap.min.js', type='text/javascript')
+    // alertifyjs-js
+    script(src='/js/alertifyjs/alertify.min.js')
+    // Utilidades - alertas
+    script(src='../../js/pages/utilidades/alertas.js', type='text/javascript')
+    // Utilidades - animaciones
+    script(src='/js/pages/utilidades/animaciones.js', type='text/javascript')
+    // steem-js
+    script(src='/js/steemjs/steem.min.js')
+    // JS - page login
+    script(src='/js/pages/sesion.js')
+    // autorizacion_steem
+    script(src='/js/pages/utilidades/autorizacion_steem.js')

@@ -1,0 +1,49 @@
+extends layout
+block content
+	// Content Header (Page header)
+	section.content-header
+		h1
+			| Gestión de opiniones de desactivación
+		ol.breadcrumb
+			li
+				small 30 min de retardo de Venezuela
+	// Main content
+	section.content
+		.row
+			.col-xs-12
+				.box
+					//.box-header
+						h3.box-title Data Table With Full Features
+					// /.box-header
+					.box-body.table-responsive
+						table#example1.table.table-bordered.table-striped(data-order='[[ 0, &quot;desc&quot; ]]')
+							thead
+								tr
+									th N°.C.
+									th F.Envio
+									th Nombre steem
+									th Opinión / Causa de la desactivación
+							tbody
+								each u_datos in datos.result
+									tr
+										td #{u_datos.id}
+										td #{u_datos.fecha_envio}
+										td #{u_datos.nombre_steem}
+										td #{u_datos.opinion}
+							tfoot
+								tr
+									th N°.C.
+									th F.Envio
+									th Nombre steem
+									th Opinión / Causa de la desactivación
+					// /.box-body
+				// /.box
+	// /.content
+block javascript
+	// DATA TABES SCRIPT
+	script(src='/js/plugins/datatables/jquery.dataTables.js', type='text/javascript')
+	script(src='/js/plugins/datatables/dataTables.bootstrap.js', type='text/javascript')
+	// page script
+	script(src='/js/AdminLTE/tables/data.js',type='text/javascript')
+	// page usuarios
+	script(src='/js/pages/admin/usuarios.js',type='text/javascript')

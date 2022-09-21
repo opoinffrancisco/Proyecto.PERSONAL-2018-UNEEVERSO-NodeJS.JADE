@@ -1,0 +1,116 @@
+extends layout
+block contenido_head
+	doctype html
+	html
+		head
+			meta(charset='UTF-8')
+			title#meta_title Novedades - Uneeverso
+			meta#meta_description(name='description' content='Lista de publicaciones sobre novedades de uneeverso')
+			meta(name='author' content='@blickyer')
+			meta(name='robots',content='index,follow')
+			meta(content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no', name='viewport')
+			// bootstrap 3.0.2
+			link(href='/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+			// font Awesome
+			link(href='/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+			// Ionicons
+			link(href='/css/ionicons.min.css', rel='stylesheet', type='text/css')
+			// Morris chart
+			link(href='/css/morris/morris.css', rel='stylesheet', type='text/css')
+			// jvectormap
+			link(href='/css/jvectormap/jquery-jvectormap-1.2.2.css', rel='stylesheet', type='text/css')
+			// fullCalendar
+			link(href='/css/fullcalendar/fullcalendar.css', rel='stylesheet', type='text/css')
+			// Daterange picker
+			link(href='/css/daterangepicker/daterangepicker-bs3.css', rel='stylesheet', type='text/css')
+			// bootstrap wysihtml5 - text editor
+			link(href='/css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css', rel='stylesheet', type='text/css')
+			// iCheck for checkboxes and radio inputs
+			link(href='/css/iCheck/all.css', rel='stylesheet', type='text/css')
+			// Bootstrap Color Picker
+			link(href='/css/colorpicker/bootstrap-colorpicker.min.css', rel='stylesheet')
+			// Bootstrap time Picker
+			link(href='/css/timepicker/bootstrap-timepicker.min.css', rel='stylesheet')
+			// DATA TABLES
+			link(href='/css/datatables/jquery.dataTables.min.css', rel='stylesheet', type='text/css')
+			// demo style for icons
+			link(href='/css/AdminLTE/icons.css', rel='stylesheet', type='text/css')
+			// Ion Slider
+			link(href='/css/ionslider/ion.rangeSlider.css', rel='stylesheet', type='text/css')
+			// ion slider Nice
+			link(href='/css/ionslider/ion.rangeSlider.skinNice.css', rel='stylesheet', type='text/css')
+			// bootstrap slider
+			link(href='/css/bootstrap-slider/slider.css', rel='stylesheet', type='text/css')
+			// Theme style
+			link(href='/css/AdminLTE.css', rel='stylesheet', type='text/css')
+			// Alertas
+			link(href='/css/alertifyjs/alertify.min.css', rel='stylesheet', type='text/css')
+			// Theme style login
+			link(href='/css/style-login.css',rel='stylesheet',type='text/css')
+			// HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+			// WARNING: Respond.js doesn't work if you view the page via file://
+			//if lt IE 9
+				script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
+				script(src='https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js')
+
+			script(async,src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js')
+			script(src='https://www.googletagmanager.com/gtag/js?id=UA-115870146-1')
+			//-- Global site tag (gtag.js) - Google Analytics --
+			script(type='text/javascript').
+				window.dataLayer = window.dataLayer || [];
+				function gtag(){dataLayer.push(arguments);}
+				gtag('js', new Date());
+
+				gtag('config', 'UA-117097933-1');
+				//-- Global site tag (gtag.js) - Google Analytics --
+				//--adsense
+				//blickyer1 2749621828224514
+				//ing.francisco.ordonez 2191196972112292
+				(adsbygoogle=window.adsbygoogle||[]).push({
+					google_ad_client:"ca-pub-2191196972112292",
+					enable_page_level_ads:true
+				});
+block content
+	section.content
+		.mailbox.row
+			.col-xs-8
+				#contendedor_novedades
+					each b_datos in datos.result
+						.box.box-solid(style='margin-bottom: 5px;')
+							.box-body
+								.row
+									.col-md-12
+										a(href='/@#{b_datos.nombre_autor}',target='_blank')
+											b #{b_datos.nombre_autor}
+										span(style='color: #b4b6b8;')  publicado el :
+										b(style='color: #b4b6b8;') #{b_datos.fecha_registro}
+								.row(style='padding-left: 15px;margin-top:  10px;')
+									.col-md-3(style='width:130px;padding:  0px;height: 100%;')
+										a(href='/novedad/#{b_datos.url}/@#{b_datos.nombre_autor}')
+											img(src='#{b_datos.url_imagen}',style='width:  130px;padding:  5px;height: 77px;')
+									.col-md-9
+										.row(style='margin-top: 10px;')
+											.col-md-12
+												a(href='/novedad/#{b_datos.url}/@#{b_datos.nombre_autor}')
+													h5 #{b_datos.nombre_muestra}
+				#carga_datos.box.box-solid(style='margin-bottom: 5px;')
+					.box-body
+						.row
+							.col-md-12
+								center
+									img(src='/img/procesar_datos.gif' style='width: 25px;height: 25px;margin: 5px 7px;')
+			.col-xs-4
+				.box.box-solid
+					.box-body
+						.row
+							.col-md-12
+								img(style='width:100%;',src='https://steemitimages.com/DQmaR9iapVpvJdGRC7uWNyacEK2yTyXBGjCn4BXdmix9J7y/marketing-uneeverso-956x538.gif')
+				ins.adsbygoogle(style='display:block',data-ad-client='ca-pub-2749621828224514',data-ad-slot='7910786719',data-ad-format='auto')
+block javascript_2_capa
+	// JS - page novedad
+	script(src='/js/pages/novedad.js')
+	script(type='text/javascript').
+		$(document).ready(function(){
+			$('#carga_datos').hide()
+			novedad.iniciar_paginacion_index()
+		});

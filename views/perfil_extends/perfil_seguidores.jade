@@ -1,0 +1,29 @@
+extends ../perfil
+block content_sub
+	.box.box-solid
+		.box-body(style='padding:5px;')
+			center
+				h4
+					| En construcción
+	// Main content
+	section.content
+			
+		.row
+			.col-md-2
+
+			.col-md-8
+				.box.box-solid
+					.box-body(style='padding:5px;')
+						.table-responsive
+							table#ctlgSeguidores.table.table-mailbox
+							// /.table-responsive
+					// /.row
+				// /.box-body
+			.col-md-2
+
+	// /.content
+block javascript_3_capa
+	// JS - page seguidores
+	script(src='/js/pages/siguiendo.js')  
+	// JS - page seguidores
+	script(src='/js/pages/seguidores.js')  
