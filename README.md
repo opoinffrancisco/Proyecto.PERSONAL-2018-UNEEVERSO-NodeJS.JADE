@@ -15,7 +15,7 @@ https://uneeverso.opoinf.com
 Organizadores principales
 https://uneeverso.opoinf.com/organizador/
 
-https://steemit.com/@blickyer (CEO)
+https://steemit.com/@blickyer (CEO y unico desarrollador)
 
 https://steemit.com/uneeverso/@blickyer/uneeverso-introduccion-a-la-comunidad-mejora-mercado-mejora-plataforma-steem-bot-v-beta-oficial-0-5-promocion (Post del lanzamiento)
 
