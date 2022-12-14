@@ -27,8 +27,7 @@ Youtuber hablando sobre el proyecto
 https://www.youtube.com/watch?v=SGkVoroKrlY (YOUTUBER "CryptoCore" / UNEEVERSO - COMUNIDAD PARA CONSEGUIR UPVOTES EN STEEMIT)
 
 
-VIDEO HISTORIA
-UNEEVERSO - Comunidad del 2018 para usuarios de la red Blockchain STEEM | Solo para mostrar en CV
+VIDEO HISTORIA | UNEEVERSO - Comunidad del 2018 para usuarios de la red Blockchain STEEM | Solo para mostrar en CV
 https://www.youtube.com/watch?v=mXROQ5z69TI
 
 ## Tecnologías 
